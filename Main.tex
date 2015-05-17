@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{25\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \Huge\bfseries  \thechapter.\quad #1\par\nobreak
+    \vskip 30\p@
+  }}
+\makeatother
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}  % for converting .eps images to pdf images
+\usepackage{amssymb}   % for curly L 
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{float}
+\newcommand*{\SignatureAndDate}[1]{%
+    \par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[2.5in][l]{#1}      \hfill\makebox[2.0in][l]{Date}%
+}%
+\usepackage{acronym}
+\usepackage{hyperref}
+\usepackage{listings}	% for code
+\usepackage{color}    	%red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\onehalfspacing
+\setlength\parindent{0pt}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+%Pre report
+\begin{document}
+%Frontpage
+\input{Frontpage.tex}
+%Abstract
+\input{Abstract.tex}
+%content list
+\input{Content.tex}
+%Introduction and Acronyms
+\input{Introduction.tex}
+%Drones part
+\input{Drones.tex}
+%Vision part
+\input{Vision.tex}
+%Conclusion
+\input{Conclusion.tex}
+%Bibliography
+\input{References.tex}
+%Appendix
+\input{Appendix.tex}
+
+
+
+
+
+
+
+\end{document}
