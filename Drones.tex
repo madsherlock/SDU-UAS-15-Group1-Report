@@ -1,18 +1,40 @@
-\chapter{Path planning}
+\chapter{Autonomous flight}
+The following sections introduces the selection, set up and how autonomous flight was achieved.
 
-\section{Drone selection and interfacing}
+\section{Drone selection}
+To fulfil the vision of and easy to use and readily available drone platforms the drone selection could be narrowed down quite easily. As the primary focus of the of the project was to explore autonomous flight other concerns such as resistance to rough weather could be neglected. \\
+During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
+The obvious choice between the 2 drones was the Iris+ as it used the open source Pixhawk FCU \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with many tasks concerning the drone. The Iris+ drone can be seen on figure \textbf{REF}.\\
 
-\subsection{IRIS+}
-- short intro\\
-\section{Selection} 
-- why\\
-- alternatives\\
-- etc.\\
+The main features and components of the Iris+ drone used for this project are:
+\begin{itemize}
+\item 16-22 minutes flight time.
+\item Payload capacity of 400g.
+\item Manual remote control.
+\item Telemetry link.
+\item Autonomous way point navigation.
+\item Feature rich ground control software.
+\end{itemize}
+
 \section{Setup}
-- Telemetry\\
-- RC\\
-- Calibration\\
-- Gimbal\\
+\subsection{Radio Controller}
+The first part of the set up was to bind the Radio Controller. The receiver used is the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky}. The radio transmitter and reciever can be seen on figure \textbf{REF}\\ 
+To bind the controller the hood of the drone had to be taken off to access the radio receiver. Then the steps are as follows:
+\begin{itemize}
+\item[1.] Turn on the radio transmitter while down the button on the back of the radio transmitter.
+\item[2.] Once the remote is beeping let go of the button on the back.
+\item[3.] Power up the drone while holding down the F/S button on the radio receiver.
+\item[4.] Release the F/S button once the radio receiver LED is flashing red and green.
+\item[5.] Power off drone.
+\item[6.] Power off radio transmitter.
+\item[7.] If bind is done correctly the radio receiver LED should be solid green when connected to the radio transmitter and the LED blink red when data is transferred.
+\end{itemize}
+For further assistance the first part of the following video was used \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
+
+\subsection{Telemetry}
+The telemetry used is the 3DR Radio v2 \cite{Ref:Telem} operating at $433 Mhz$. The purpose of the telemetry is to transmit and receive data from and to the ground station via the MAVLink protocol \cite{Ref:MAVLink}.\\
+To  
+\subsection{Gimbal}
 \subsection{APM Planner 2.0}
 - short intro etc \\
 \section{Calibration}
