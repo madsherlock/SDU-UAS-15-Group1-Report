@@ -121,13 +121,26 @@ Several initial tests had been done without success due to either safety issues 
 
 One test with a altitude of 30 meters above ground was tested but had to be switched to manual mode and landed as there was too much wind.\\
  
-\subsection{Mavros}
+\section{Mavros}
+Since the aim of teh project was to explore autonomous flight with an easy to use interface a way to communicate directly to the drone without APM PLanner 2.0 was needed. To do this the Mavros \cite{Ref:Mavros} ros package was used. By running a main Mavros node it was possible to connect to the drones telemetry and control it.\\
+As this node was in a beta state when used there was not a lot of documentation but by some trial and error it was possible to connect to the drone, arm it and upload a way point list to the pixhawk FCU. Data from the drone was also published on several topics which could be used for further control. ROS was only used on ubuntu 14.04.\\
+The approach was as follow:
 
-- Brief intro to ROS\\
-- Nodes setup\\
-- Interface\\
-- Tests\\
-- Future possibilities\\
-\subsection{Generating search patterns}
+\begin{itemize}
+
+\item[1.] Modify the apm2.launch files url to reflect the telemetry port and baud rate  e.g. arg name="fcu\_url" default="/dev/ttyUSB0:57600" 
+\item[2.] roslaunch the modified node and verify it is connected
+\item[3.] If it failed to get permission try "sudo chmod 666 /dev/ttyUSB0"
+\item[4.] To enable topics streamrate from pixhawk call "rosservice call /mavros/set\_stream\_rate 0 10 1"
+\item[5.] To arm use "rosservice call /mavros/cmd/arming "value: true" "
+\item[6.] To load way point list use "rosrun mavros mavwp load /path/waypoints.txt" where waypoint.txt contains correct mavlink formatting.
+
+\end{itemize}
+
+The tests mentioned in previous section was with way points uploaded via mavros.\\
+Getting the basics of uploading way points and arming the drone to work with implemented rosrun functions was simple once the syntax was mastered. Implementing this into a joint program with a path generation algorithm would be trivial. This could result in an easy to use GUI application which took a simple coordinate as an input and an altitude and the autonomously flew the drone to search.\\
+The next section will describe how such a search pattern generator was developed and used.
+
+\section{Generating search patterns}
 - Mikael\\
 \newpage
