@@ -74,20 +74,55 @@ To additional fly modes were used to easily land the drone and to return the dro
 \subsection*{Fail safe}
 To control the behaviour in case of a malfunction on the radio controller side or the drone running low on battery, the fail safe options have to be set. The software will give a warning to dismount the rotors doing this setup. This is important as the motors are controllable in this mode.\\
 To do this the the throttle fail safe value is set approximately 30 below the lowest value of your throttle stick. This ensures that if radio connection is lost it will do the desired action. For our case we chose return to land.\\
-The other fail safe option is when the drone battery level goes below a certain voltage it should perform the desired action. Return to land was also chosen for as this action.
+The other fail safe option is when the drone battery level goes below a certain voltage it should perform the desired action. Return to land was also chosen for as this action.\\
+The fail safe menu also provides sliders representing the values coming from the radio controller and the motor output. This feature was used to check if the flight modes gave the expected output to the motors.
 
 \section{Flight}
-- possibilities\\
-- interface\\
-- syntax\\
-\section{Tetst and safety}
-- Safety check\\
-- Dangers\\
-- failed tests\\
-- completed tests\\
-- what was learned\\
+To do a proper flight with the drone all of the pre arm actions have to be done. This involves keeping the drone in a steady position and having a good GPS lock. The drone is armed by first holding down the front red button on the drone, it is now ready to be armed, but not armed. The arming is different from controller to controller but the arming sequence on the used controller was to keep the throttle in the bottom right corner. To disarm it the throttle had to be in the bottom left corner. The pre arm errors can be looked up on the following page \url{http://copter.ardupilot.com/wiki/flying-arducopter/prearm_safety_check/}. It should be noted that arming the drone inside can be a tedious task as a good GPS lock is required.\\ 
 
+\subsection{Preflight \& safety}
+During the extended testing phase several safety procedures were established. This led to a preflight test check list.\\
+The preflight checks in lab consisted off:
+\begin{itemize}
+\item[1.] Check firmware is the most recent stable version.
+\item[2.] Do calibrations.
+\item[3.] Set desired flight modes and fail safe settings.
+\item[4.] Check output in different flight modes with motors on (no rotors).
+\item[5.] Ensure proper connection to APM so data can be tracked in APM Planner 2.0.
+\item[6.] Mount rotors and do test flight in drone cage.
+\end{itemize}
+
+The preflight checks at the airport consisted off:
+\begin{itemize}
+\item[1.] Do calibrations.
+\item[2.] Ensure proper connection to APM so data can be tracked in APM Planner 2.0.
+\item[3.] Contact tower to get clearance to fly and get wind speed.
+\item[4.] Alert bystanders of flight.
+\item[5.] Find spot for controlled crash i case of emergency.
+\end{itemize}
+
+\subsection{Autonomous flight}
+To test out the autonomous flight feature on the arducopter frimware, APM planner 2.0 was used to plot a simple route at the airport. A route in APM Planner 2.0 was generated using way points. These way points were placed at a relative altitude to the drones home position which is the arming position. The drone would fly a straight path to the way point and wait there for a designated time. It is possible to control orientation of the drones as well as proximity to the way point before it is accepted.\\
+The APM Planner 2.0 software offers a collection of other actions such as loiter, set region of interest etc. These were not used\\
+
+ 
+\subsection{Tests}
+The path shown on \ref{fig:HCAPath} was the one flown to test the autonomous flight. All of the way points were 8 meters above ground. The accepted distance to the way point was set to a 2 meter radius and the orientation of the drone was always in the direction of flight. 
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.95\textwidth]{./Images/HCAPath}
+  \caption{Test path at HCA Airport.}
+  \label{fig:HCAPath}
+\end{figure}
+
+During the test day the wind was decent which resulted in a slower flight against the wind but the overall performance of the drone was good as it flew the described route. \\
+
+Several initial tests had been done without success due to either safety issues concerning being able to switch to manual mode and general flight planning issues.\\
+
+One test with a altitude of 30 meters above ground was tested but had to be switched to manual mode and landed as there was too much wind.\\
+ 
 \subsection{Mavros}
+
 - Brief intro to ROS\\
 - Nodes setup\\
 - Interface\\
