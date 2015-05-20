@@ -29,14 +29,19 @@ To bind the controller the hood of the drone had to be taken off to access the r
 \item[6.] Power off radio transmitter.
 \item[7.] If bind is done correctly the radio receiver LED should be solid green when connected to the radio transmitter and the LED blink red when data is transferred.
 \end{itemize}
-For further assistance the first part of the following video was used \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
+For further assistance the first part of the following video i suggested \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
 
 \subsection{Telemetry}
 The telemetry used is the 3DR Radio v2 \cite{Ref:Telem} operating at $433 Mhz$. The purpose of the telemetry is to transmit and receive data from and to the ground station via the MAVLink protocol \cite{Ref:MAVLink}.\\
-To  
+To connect the ground telemetry to the telemetry on the drone the 3DRRadio software was used on a windows machine. The two telemetries were connected to the PC by USB one at a time and set to the desired configuration. The configuration used can be seen on figure \textbf{REF}, where the most significant are the baud rate and the net id. When setting the configurations on the drone telemetry it is important that it is not connected to the pixhawk FCU.\\
+When connected the green LED should be solid and the red LED should blink whenever data is transferred. The drone telemetry can now safely be connected to the pixhawk FCU again.
+
 \subsection{Gimbal}
+Since pictures had to be taken during flight and as these pictures had to be good enough to use computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The gimbal adds extra weight to the drone and uses extra power from the battery to power the motors. Both of these factors leads to a significant decrease in flight time.\\
+The integration and usage of the gimbal will be further explained in the vision chapter. 
 \subsection{APM Planner 2.0}
 - short intro etc \\
+
 \section{Calibration}
 - how and common errors\\
 \section{Flight planning}
