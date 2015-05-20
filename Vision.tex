@@ -1,13 +1,50 @@
-\chapter{Vision}
-\section{Problem}
-\section{Hardware}
+\chapter{People detection}
+Under this section, the solution adopted for the vision-based human detection part of the project, the arguments that led to this approach, the assumptions made, the tests performed and the obtained results are presented. 
+
+\section{Problem definition}
+Once the purpose of the vision system has been well defined, the operating conditions and the environment must be carefully studied in order to find the most suitable solution.
+An embedded vision system portable by a drone, robust and fast enough and with low energy consumption is required for the task. 
+The detection of people in the sea entails specific problems that must be treated such as:
+
+\begin{enumerate}[itemsep=1mm,topsep=1mm,leftmargin=.35in]
+    \item False positives due to any kind of ocean animals or rocks
+    \item Changes in illumination conditions due to outdoors work
+    \item Forecast behavior: wind, rain
+    \item Moving background and platform
+    \item Highly reflective background
+\end{enumerate}%
+
+Therefore, the election of the hardware and the vision algorithm has to be taken consequently with these points.
+
+\section{Equipment}
+According to the ideas above and the available resources, a logically consistent choice seems to go through the image processing options. 
+This is due to the fact that any other kind of visual system (thermal camera, structured light, time of flight measurements, etc) do not fulfill the requirements or turns out to be too expensive.
+Hence, a GoPro HERO 3 camera has been chosen as a robust, light and powerful enough solution \cite{ref:HERO3}.
+In order to deal with the instability and disruptions caused by the platform, the camera has been mounted on a Tarot GoPro gimbal ***(Refer. datasheet) used as a stabilizer.
+
+\subsection{GoPro HERO 3}
+The technical parameters of the chosen model have influenced the way the vision algorithm has been approached.
+The characteristic small focal length of this camera model, together with the flight altitude of the drone, leads to a wide field of view, and therefore a big scanned area of ocean per frame. The high resolution of the frames and the frame rate ....blablabla
+
+\subsection{GoPro gimbal }
+Just some technical details and find datasheet
+
+
+\section{Vision task}
+Given the hardware platform, the image processing algorithm must deal with the remaining problems in order to reach the goal of the system. 
+The initial proposals for people detection, based on movement analysis and human morphological features extraction where discarded after being subjected to more detailed studies. 
+The moving platform and the waves made unfeasible a reliable solution based on movement tracking assuming that the people to be detected were moving.
+Furthermore, the possibility of the targets being drowning, partially or almost completely covered by water prevented any kind of solution from succeeding employing morphological analysis. 
+In the view of the arguments above, the final solution was decided to perform human skin detection under the assumption that at least part of the targets would be floating.
+
+
 \subsection{Thresholding}
 \subsection{Skin detection}
 \subsection{Antiglare effect}
-\section{Algorithm}
-\section{Perfomance test}
+\section{Performance tests}
+\section{Results}
 \section{Conclusion}
-\subsection{Further development}
+\subsection{Further work}
 \section{Discussion}
 %% Some ideas for possible sections..  We should talk about it at some point.. 
 \newpage
