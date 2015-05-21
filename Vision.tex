@@ -20,14 +20,18 @@ Therefore, the election of the hardware and the vision algorithm has to be taken
 According to the ideas above and the available resources, a logically consistent choice seems to go through the image processing options. 
 This is due to the fact that any other kind of visual system (thermal camera, structured light, time of flight measurements, etc) do not fulfill the requirements or turns out to be too expensive.
 Hence, a GoPro HERO 3 camera has been chosen as a robust, light and powerful enough solution \cite{ref:HERO3}.
-In order to deal with the instability and disruptions caused by the platform, the camera has been mounted on a Tarot GoPro gimbal ***(Refer. datasheet) used as a stabilizer.
+In order to deal with the instability and disruptions caused by the platform, the camera has been mounted on a Tarot T-2D Brushless Gimbal Kit, whose technical details can be found in \cite{Ref:Gimbal}, which used as a stabilizer.
 
 \subsection{GoPro HERO 3}
-The technical parameters of the chosen model have influenced the way the vision algorithm has been approached.
-The characteristic small focal length of this camera model, together with the flight altitude of the drone, leads to a wide field of view, and therefore a big scanned area of ocean per frame. The high resolution of the frames and the frame rate ....blablabla
+The technical parameters of the chosen camera model have influenced the way the vision algorithm has been approached.
+The characteristic small focal length of this camera model, together with the flight altitude of the drone, leads to a wide field of view, and therefore a big scanned area of ocean per frame. 
+The high resolution of the frames allows a precise image processing with a low loss of information in the acquisition even from high altitude.
+Its elevated frame rate for video is, however, constrained by the processing time of the vision algorithm, which has been developed striving for low memory and time consumption since it processes the images online and its aimed to do it onboard.
 
 \subsection{GoPro gimbal}
-Just some technical details and find datasheet
+The installed gimbal Tarot T-2D Brushless Gimbal Kit offers roll and tilt stabilization and has been configured to point the camera downwards due to its wide FOV. 
+By doing this it is ensured that once the drone is offshore the images will only contain a background of the ocean, facilitating the image processing and speeding up the preprocessing of the pictures.
+Furthermore, as said before, the gimbal provides high stability for precise image acquisition and filters out disruptions on the flight, which allows an easier and more reliable human detection system.
 
 
 \section{Vision task}
@@ -44,6 +48,43 @@ In order to perform a robust detection, the RGB-H-CbCr human skin color model pr
 ***Details about the program here
 ***Equations of rules A, B and C from ref 1*****Keerthi
 
+%\begin{equation}
+%		\begin{cases}
+%		    (R > 95) AND (G > 40) AND (B > 20),& \text{AND}\\
+%		    (max(R, G, B) - min(R, G, B) > 15), & \text{AND}\\
+%		    (abs(R - G) > 15) AND (R > G) AND (R > B)
+%		\end{cases}
+%		\label{eq:rule1}
+%\end{equation}
+%\begin{equation}
+%		\begin{cases}
+%		    (R > 220) AND (G > 210) AND (B > 170),& \text{AND}\\
+%			(|R - G| <= 15) AND (R > B) AND (G > B)
+%		\end{cases}
+%		\label{eq:rule2}
+%\end{equation}
+
+%\begin{equation}
+%		\begin{cases}
+%			Cr ≤ 1.5862 × Cb + 20
+%			Cr ≥ 0.3448 × Cb + 76.2069
+%			Cr ≥ -4.5652 × Cb + 234.5652
+%			Cr ≤ -1.15 × Cb + 301.75
+%			Cr ≤ -2.2857 × Cb + 432.85
+%			\end{cases}
+%		\label{eq:rule3}
+%\end{equation}
+
+%\begin{equation}
+%		\begin{cases}
+%			H < 25
+%			H > 230
+%		\end{cases}
+%		\label{eq:rule3}
+%\end{equation}
+
+
+
 \subsection{Preprocessing}
 The pixel-wise searching method is a very accurate but heavy process that entails a high time consumption.
 In order to speed the overall performance up, some regions of interest in the image with higher possibilities of containing people must be found as a previous step. To do so, an analysis and comparison of example images of the ocean, with and without people and under different illumination conditions was carried out.  
@@ -54,21 +95,102 @@ These floating objects always involved a disruption or change in the average hue
 However, a threshold value in hue could not be fixed, due to its dependency with the general illumination level. 
 Thus, the solution adopted was to set up a dynamic threshold applying Otsu's method, as described in \cite{Ref:Otsu}.
 Proceeding this way, a few small regions containing all the candidates could be input to the skin scan process, getting rid of the majority of the image with no relevant information. 
+This part of the process contains the strongest assumption made for the algorithm. 
+For the binarization of the image an uniform background is assumed, meaning that this step will tend to fail for images with strongly non-homogeneous surroundings. 
+It can handle ocean and sky or distant coast lines tough. 
 
-Furthermore, another assumption was made here concerning the size of the input ROIs. 
-According to the hight of the drone on the flight and the focal length of the camera, an approximate estimation of the size of the pixel are of people in the image can be made. 
+Furthermore, an estimation was made here concerning the size of the input ROIs. 
+According to the hight of the drone on the flight and the focal length of the camera, an approximate calculation of the size of the pixel are of people in the image can be made. 
 With it all the objects out of this boundaries can be filtered out, easing the posterior process.
 
 As the last point on the preprocessing part, a simple and easy to implement method for dealing with the glare of the sun light on the water is suggested here, although not implemented in the project, since we came out with this problem at the very end.
 The thresholding in hue was proved to fail in the cases of light reflection on small spots for certain intensities, since this glare caused also a strong enough change in the hue image histogram. To eliminate these false positives, the easiest solution would be to include a polarizer filter in the setup, which could also facilitate the color detection. 
 
 \subsection{Postprocessing}
-The result 
+The outputs of the whole process are the images considered to contain people on the water in the patrolled area. 
+These pictures are stored and sent to the ground control to be analyzed by the staff in charge, introducing a human in the control loop.
+If the pictures are confirmed to contain people, this means that they are swimming in a forbidden zone or drowning, and the specific intervention activities are triggered, while the drone keeps its patrol. 
 
 \section{Performance tests}
-*** A database with relevant images and videos was created with testing purposes.\\
+The design and implementation of the vision algorithm, developed in C++ and OpenCV, has been an iterative process consisting in several steps of coding and testing of the different parts of the program. 
+For testing purposes, a database with several relevant images and videos that fulfilled the specifications for the application has been created. ****
+
+A database with relevant images and videos was created with testing purposes.\\
+
+Example of successful test in the PC for the analysis of images carried out
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[h]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/ocean7}
+                \caption{Image 1: original image}
+                \label{fig:original}
+        \end{subfigure}%
+        \quad
+        \begin{subfigure}[h]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/final}
+                \caption{Image 1: processed image}
+                \label{fig:final}
+        \end{subfigure}
+        \caption{Original and processed images}
+\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/hue}
+                \caption{Image 1: hue}
+                \label{fig:original}
+        \end{subfigure}%
+        \quad
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/sat}
+                \caption{Image 1: saturation}
+                \label{fig:final}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/val}
+                \caption{Image 1: value}
+                \label{fig:final}
+        \end{subfigure}
+        \caption{HSV color space decomposition}
+\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/hueHist}
+                \caption{Image 1: hue histogram}
+                \label{fig:hueHist}
+        \end{subfigure}%
+        \quad
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/bin}
+                \caption{Image 1: binarized}
+                \label{fig:binarized}
+        \end{subfigure}
+        \caption{Dynamic thresholding in hue}
+\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/proc}
+                \caption{Image 1: ROIs before particles filtering}
+                \label{fig:ROIs}
+        \end{subfigure}%
+        \quad
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Images/ROI}
+                \caption{Image 1: one of the ROIs amplified after filtering}
+                \label{fig:oneROI}
+        \end{subfigure}
+        \caption{Dynamic thresholding in hue}
+\end{figure}
+
 *** Computer tests\\
-*** Considerations regarding onboard implementation\\
+*** Considerations regarding onboard implementation (processing time and capabilities, memory, etc)\\
 \section{Results}
 \section{Conclusion}
 \subsection{Further work}
