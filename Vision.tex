@@ -43,7 +43,8 @@ In the view of the arguments above, the final solution was decided to perform hu
 
 
 \subsection{Human skin identification}
-In order to perform a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}.\\
+In order to perform a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. This filter has been added to overcome the issue issue of occlusion, which will occur as the drone is patrols crash site and wreckage might occlur with victims, and thereby making it harder to detect them. Filter has been determined by looking at 140 different skin color patches, based a color model has been determined. The filter is also capable of dealing with various levels of brightness and illumination. 
+
 ***Details about the color model
 ***Details about the program here
 ***Equations of rules A, B and C from ref 1*****Keerthi
