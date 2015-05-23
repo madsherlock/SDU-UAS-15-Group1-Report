@@ -43,12 +43,7 @@ In the view of the arguments above, the final solution was decided to perform hu
 
 
 \subsection{Human skin identification}
-In order to perform a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. This filter has been added to overcome the issue issue of occlusion, which will occur as the drone is patrols crash site and wreckage might occlur with victims, and thereby making it harder to detect them. Filter has been determined by looking at 140 different skin color patches, based a color model has been determined. The filter is also capable of dealing with various levels of brightness and illumination. 
-
-***Details about the color model
-***Details about the program here
-***Equations of rules A, B and C from ref 1*****Keerthi
-
+In order to perform a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. This filter has been added to overcome the issue issue of occlusion, which will occur as the drone is patrols crash site and wreckage might occlur with victims, and thereby making it harder to detect them. Filter has been determined by looking at 140 different skin color patches, based a color model has been determined. The filter is also capable of dealing with various levels of brightness and illumination, which is an approiate feaure for this application as wheather condition cannot be predicted,and also affect how the skin color of a person. 
 %\begin{equation}
 %		\begin{cases}
 %		    (R > 95) AND (G > 40) AND (B > 20),& \text{AND}\\
@@ -81,8 +76,10 @@ In order to perform a robust detection, the RGB-H-CbCr human skin color model pr
 %			H < 25
 %			H > 230
 %		\end{cases}
-%		\label{eq:rule3}
+%	\label{eq:rule3}
 %\end{equation}
+The filter is applied after input has been binary segmented and  ROI's is created from white blob. Each ROI will will run through the filter, and if the filter deems that ROI contains a human will it be noted otherwise ignored.  By only working on ROI images rather than the full image, is the time needed for compute to apply the filter shrinken to a minimum. 
+
 
 
 
