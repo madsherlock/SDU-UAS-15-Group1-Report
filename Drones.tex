@@ -4,7 +4,7 @@ The following sections introduces the selection, set up and how autonomous fligh
 \section{Drone selection}
 To fulfil the vision of and easy to use and readily available drone platforms the drone selection could be narrowed down quite easily. As the primary focus of the of the project was to explore autonomous flight other concerns such as resistance to rough weather could be neglected. \\
 During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
-The obvious choice between the 2 drones was the Iris+ as it used the open source Pixhawk FCU \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with many tasks concerning the drone. The Iris+ drone can be seen on figure \textbf{REF}.\\
+The obvious choice between the 2 drones was the Iris+ as it used the open source Pixhawk FCU \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.\\
 
 The main features and components of the Iris+ drone used for this project are:
 \begin{itemize}
@@ -16,9 +16,17 @@ The main features and components of the Iris+ drone used for this project are:
 \item Feature rich ground control software.
 \end{itemize}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{./Images/iris}
+  \caption{TThe Iris+ drone.}
+  \label{fig:iris}
+\end{figure}
+
+
 \section{Setup}
 \subsection*{Radio Controller}
-The first part of the set up was to bind the Radio Controller. The receiver used is the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky}. The radio transmitter and reciever can be seen on figure \textbf{REF}\\ 
+The first part of the set up was to bind the Radio Controller. The receiver used is the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky} and can be seen on figure \ref{fig:irisInside}\\ 
 To bind the controller the hood of the drone had to be taken off to access the radio receiver. Then the steps are as follows:
 \begin{itemize}
 \item[1.] Turn on the radio transmitter while down the button on the back of the radio transmitter.
@@ -31,17 +39,31 @@ To bind the controller the hood of the drone had to be taken off to access the r
 \end{itemize}
 For further assistance the first part of the following video i suggested \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{./Images/insideIRIS}
+  \caption{The Iris+ drone inside.The red rectangles marks the telemetry and the blue rectangle mark the radio receiver.}
+  \label{fig:irisInside}
+\end{figure}
+
 \subsection*{Telemetry}
 The telemetry used is the 3DR Radio v2 \cite{Ref:Telem} operating at $433 Mhz$. The purpose of the telemetry is to transmit and receive data from and to the ground station via the MAVLink protocol \cite{Ref:MAVLink}.\\
-To connect the ground telemetry to the telemetry on the drone the 3DRRadio software was used on a windows machine. The two telemetries were connected to the PC by USB one at a time and set to the desired configuration. The configuration used can be seen on figure \textbf{REF}, where the most significant are the baud rate and the net id. When setting the configurations on the drone telemetry it is important that it is not connected to the pixhawk FCU.\\
+To connect the ground telemetry to the telemetry on the drone the 3DRRadio software was used on a windows machine. The two telemetries were connected to the PC by USB one at a time and set to the desired configuration. The configuration used can be seen on figure \ref{fig:telem}, where the most significant are the baud rate and the net id. When setting the configurations on the drone telemetry it is important that it is not connected to the pixhawk FCU.\\
 When connected the green LED should be solid and the red LED should blink whenever data is transferred. The drone telemetry can now safely be connected to the pixhawk FCU again.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{./Images/telem}
+  \caption{Used telemetry configurations.}
+  \label{fig:telem}
+\end{figure}
 
 \subsection*{Gimbal}
 Since pictures had to be taken during flight and as these pictures had to be good enough to use computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The gimbal adds extra weight to the drone and uses extra power from the battery to power the motors. Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
 \subsection*{APM Planner 2.0}
 The firmware for the pixhawk was a choice between the original px4 and arducopter \cite{Ref:Arducopter}. As 3DR adviced to flash the arducopter firmware and it features several features not available through the px4, arducopter was the clear choice.\\
-To communicate with the arducopter firmware for calibration purposes and as a general interface APM Planner 2.0 was used \cite{APM2}. This software was run on OSX Yosemite and proved to have several crashes during calibration and firmware flashing. The best solution found for this problem was a simple reboot. While running the flight data mode where it communicated with the drone by telemetry it was very stable and responsive.\\
+To communicate with the arducopter firmware for calibration purposes and as a general interface APM Planner 2.0 was used \cite{Ref:APM2}. This software was run on OSX Yosemite and proved to have several crashes during calibration and firmware flashing. The best solution found for this problem was a simple reboot. While running the flight data mode where it communicated with the drone by telemetry it was very stable and responsive.\\
 The APM planner 2.0 software was primarily used for calibration and waypoint planning which was a build in feature in the arducopter firmware.\\
 All of the setup for the pixhawk FCU was done under initial setup in the APM planner 2.0.
 
@@ -108,6 +130,7 @@ The APM Planner 2.0 software offers a collection of other actions such as loiter
  
 \subsection{Tests}
 The path shown on \ref{fig:HCAPath} was the one flown to test the autonomous flight. All of the way points were 8 meters above ground. The accepted distance to the way point was set to a 2 meter radius and the orientation of the drone was always in the direction of flight. 
+
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.95\textwidth]{./Images/HCAPath}
