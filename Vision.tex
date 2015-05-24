@@ -78,16 +78,28 @@ In order to perform a robust detection, the RGB-H-CbCr human skin color model pr
 %		\end{cases}
 %	\label{eq:rule3}
 %\end{equation}
-The filter is applied after input has been binary segmented and  ROI's of the white blobs has been made. Each ROI will will run through the filter, and if the filter deems the ROI to contain a human will it be noted otherwise ignored.  By only working on ROI images rather than the full image, is the computational time needed for apply the filter shrinken to a minimum. The filter is applied on every pixel of the image, the response of the pixel is saved in a map. If the filter reponse deems the pixel to be something from a human it will output a white pixel if not a it will output a black pixel.  If the ratio of white pixels is bigger than the white will it object in the ROI be deemed as a person. 
+The filter is applied after input has been binary segmented and  ROI's of the white blobs has been made. Each ROI will will run through the filter, and if the filter deems the ROI to contain a human will it be noted otherwise ignored.  By only working on ROI images rather than the full image, is the computational time needed for apply the filter shrinken to a minimum. The filter is applied on every pixel of the image, the response of the pixel is saved in a map. If the filter reponse deems the pixel to be something from a human it will output a white pixel if not a it will output a black pixel.  If the ratio of white pixels is bigger than the white will it object in the ROI be deemed as a person see \ref{fig:ROIs} and \ref{fig:responsemap}. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Images/humanDolphin}
+\includegraphics[width=\textwidth]{Images/humanDolphin.png}
 \label{fig:humanAndDolphin}
 \caption{Skin detector capable of distinct between animals and human}
 \end{figure}
-
-Ordinary detector such as HaarCascades etc. are trained to detect peope from in a certain pose, as this a factor which cannot be kept consistent in this application the choise applying this detector seemed reasonable. CPU wise is the process of detection people from the footage kept at minimum meaning, that any computer would without problem run this program at with ease make use of its capabilities. 
+\begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+        	\centering
+				\includegraphics[scale=0.5]{Images/roi_response1.png}
+        \end{subfigure}%
+        \begin{subfigure}[b]{0.3\textwidth}
+        	\centering
+				\includegraphics[scale=0.5]{Images/roi_response2.png}
+        \end{subfigure}
+        \label{fig:responsemap}
+        \caption{Response map of the  detected ROI}
+\end{figure}
+Ordinary detector such as HaarCascades etc. are trained to detect peope within certain pose, as this a factor which cannot be kept consistent in this application the choise  of applying this detector seemed reasonable. CPU wise is the process of detection people from the footage kept at minimum meaning, meaning any computer would without problem run this program at with ease make use of its capabilities. 
 
 
 \subsection{Preprocessing}
