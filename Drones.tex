@@ -164,10 +164,35 @@ The approach was as follow:
 
 \end{itemize}
 
+Mavros uses a Mavlink waypoint file format for uploading waypoints.
+This format is the same as the one used by the APMPlanner2 application,
+which is able to visualize the waypoints in a satellite image.
+An application named waypointgen1 was developed for conversion between coordinate paths generated in Google Earth (in the .kml file format)
+and mavlink protocol formatted waypoint files. This application is based on a C++ library (contained in a file named waypoint.h)
+developed for simple manipulation of waypoints. The library provides functionality necessary to convert .kml files to waypoint files
+and to convert .csv files to waypoint files.
+
 The tests mentioned in previous section was with way points uploaded via mavros.\\
 Getting the basics of uploading way points and arming the drone to work with implemented rosrun functions was simple once the syntax was mastered. Implementing this into a joint program with a path generation algorithm would be trivial. This could result in an easy to use GUI application which took a simple coordinate as an input and an altitude and the autonomously flew the drone to search.\\
-The next section will describe how such a search pattern generator was developed and used.
+The next section will describe how such a search pattern generator was developed and used, using the waypoint library described above.
 
 \section{Generating search patterns}
-- Mikael\\
+A search pattern generation script was developed in Matlab for use with the C++ waypoint library.
+The Matlab script, named zigzag, generates a "Zig Zag" flight pattern.
+The script takes four arguments: Three coordinates and a search angle.
+The first coordinate is the flight starting coordinate. The second coordinate is the flight ending coordinate.
+The search angle describes how the search zone from starting coordinate to ending coordinate expands.
+For example, a search angle of 0 would mean the flight path is straight from starting coordinate to ending coordinate.
+The third coordinate, named the density coordinate, is placed near the starting coordinate, and is used by the script to calculate the spacing
+between the back and forth zig zag flights. This means that if the third coordinate is placed very close to the starting coordinate,
+the flight path will be very long and go back and forth a lot of times before reaching the ending coordinate.
+An example of how the search path setup looks like in Google Earth is shown in figure \ref{fig:googlepath}.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{Images/googlepath}
+\caption[Search path setup.]{Search path setup example in Google Earth.}
+\label{fig:googlepath}
+\end{figure}
+
+
 \newpage
