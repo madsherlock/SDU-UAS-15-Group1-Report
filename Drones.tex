@@ -1,12 +1,12 @@
 \chapter{Autonomous flight}
-The following sections introduces the selection, setup and how autonomous flight was achieved on the
-Iris+.
+The following sections introduces the selection, setup and how autonomous flight was achieved on
+theIris+.
 
 \section{Drone selection}
 To fulfil the vision of using an easy to use and readily available drone platforms,
 the drone selection could be narrowed down quite easily. As the primary focus of the project was to
-explore autonomous flight, other concerns such as resistance to rough weather could be neglected. \\
-During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2
+explore autonomous flight, other concerns such as resistance to rough weather could be neglected.
+\\During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2
 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
 The obvious choice between the 2 drones were the Iris+, as it used the open source pixhawk FCU
 \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with
@@ -69,8 +69,8 @@ telemetry is to transmit and receive data from and to the ground station via the
 To connect the ground telemetry to the telemetry on the drone the 3DRRadio software was used on a
 windows machine. The two telemetries were connected to the PC by USB one at a time and set to the
 desired configuration. The configuration used can be seen on figure \ref{fig:telem}, where the most
-significant are the baud rate and the net id. When setting the configurations on the drone telemetry
-it is important that it is not connected to the pixhawk FCU.\\
+significant are the baud rate and the net id. When setting the configurations on the drone
+telemetryit is important that it is not connected to the pixhawk FCU.\\
 When connected the green LED should be solid and the red LED should blink whenever data is
 transferred. The drone telemetry can now safely be connected to the pixhawk FCU again.
 
@@ -84,8 +84,8 @@ transferred. The drone telemetry can now safely be connected to the pixhawk FCU 
 \subsection*{Gimbal}
 Since pictures had to be taken during flight and as these pictures had to be good enough to use
 computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The
-gimbal adds extra weight to the drone and uses extra power from the battery to power the two motors.
-Both of these factors leads to a significant decrease in flight time.\\
+gimbal adds extra weight to the drone and uses extra power from the battery to power the two
+motors.Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
 \subsection*{APM Planner 2.0}
 The firmware for the pixhawk was a choice between the original px4 and arducopter
@@ -114,8 +114,9 @@ The 4 mandatory calibrations that had to be done were:
 \item Radio calibration
 \end{itemize}
 
-To calibrate for the physical appearance of the drone the proper frame type had to be selected. This
-is done under the "initial setup" menu where "Frame type" should be selected. The proper frame type
+To calibrate for the physical appearance of the drone the proper frame type had to be selected.
+Thisis done under the "initial setup" menu where "Frame type" should be selected. The proper frame
+type
 is selected and then downloaded. This sets all the parameters for the specific drone type. For this
 project the iris+ with tarot gimbal was used.\\
 
@@ -126,8 +127,8 @@ drone around all axes. It is advised to power the drone with battery as the wire
 up and make the calibration more complicated. Sometimes several crashes were encountered doing the
 calibration process for no apparent reason.\\
 
-The calibration of the accelerometer was pretty straight forward. To calibrate the the accelerometer
-the software asks you to put the drone in 6 distinct positions and then press enter.\\
+The calibration of the accelerometer was pretty straight forward. To calibrate the the
+accelerometerthe software asks you to put the drone in 6 distinct positions and then press enter.\\
 
 The last mandatory calibration needed is the radio calibration. When the radio is turned on and
 properly connected to the drone the radio calibration can be initiated. All of the control sticks
@@ -146,8 +147,8 @@ noted that some elements are a bit outdated in this guide.
 \subsection*{Flight modes}
 As the arducopter firmware has several different flight modes and the pre set flight modes does not
 match the desired flight modes for this project they have to be changed. The desired flight modes
-are stabilize and auto-hold for manual modes and auto mode for autonomous flight. It is important to
-set these flight modes to overrule the autonomous flight if anything is not going according to
+are stabilize and auto-hold for manual modes and auto mode for autonomous flight. It is important
+toset these flight modes to overrule the autonomous flight if anything is not going according to
 plan.\\
 As different radio controllers are available one should always check that the flight modes are
 mapped to the used controller as desired, without rotors.\\
@@ -161,20 +162,21 @@ To control the behaviour in case of a malfunction on the radio controller side o
 low on battery, the fail safe options have to be set. The software will give a warning to dismount
 the rotors doing this setup. This is important as the motors are controllable in this mode.\\
 To do this the the throttle fail safe value is set approximately 30 below the lowest value of your
-throttle stick. This ensures that if radio connection is lost it will do the desired action. For our
-case we chose return to land.\\
+throttle stick. This ensures that if radio connection is lost it will do the desired action. For
+ourcase we chose return to land.\\
 The other fail safe option is when the drone battery level goes below a certain voltage it should
 perform the desired action. Return to land was also chosen for as this action.\\
 The fail safe menu also provides sliders representing the values coming from the radio controller
-and the motor output. This feature was used to check if the flight modes gave the expected output to
-the motors.
+and the motor output. This feature was used to check if the flight modes gave the expected output
+tothe motors.
 
 \section{Flight}
 To do a proper flight with the drone all of the pre arm actions have to be done. This involves
 keeping the drone in a steady position and having a good GPS lock. The drone is armed by first
 holding down the front red button on the drone, it is now ready to be armed, but not armed. The
-arming is different from controller to controller but the arming sequence on the used controller was
-to keep the throttle in the bottom right corner. To disarm it the throttle had to be in the bottom
+arming is different from controller to controller but the arming sequence on the used controller
+wasto keep the throttle in the bottom right corner. To disarm it the throttle had to be in the
+bottom
 left corner. The pre arm errors can be looked up on the following page
 \url{http://copter.ardupilot.com/wiki/flying-arducopter/prearm_safety_check/}. It should be noted
 that arming the drone inside can be a tedious task as a good GPS lock is required.\\
@@ -203,10 +205,11 @@ The preflight checks at the airport consisted off:
 
 \subsection{Autonomous flight}
 To test out the autonomous flight feature on the arducopter frimware, APM planner 2.0 was used to
-plot a simple route at the airport. A route in APM Planner 2.0 was generated using way points. These
-way points were placed at a relative altitude to the drones home position which is the arming
-position. The drone would fly a straight path to the way point and wait there for a designated time.
-It is possible to control orientation of the drones as well as proximity to the way point before it
+plot a simple route at the airport. A route in APM Planner 2.0 was generated using way points.
+Theseway points were placed at a relative altitude to the drones home position which is the arming
+position. The drone would fly a straight path to the way point and wait there for a designated
+time.It is possible to control orientation of the drones as well as proximity to the way point
+before it
 is accepted.\\
 The APM Planner 2.0 software offers a collection of other actions such as loiter, set region of
 interest etc. These were not used\\
@@ -230,8 +233,8 @@ overall performance of the drone was good as it flew the described route. \\
 Several initial tests had been done without success due to either safety issues concerning being
 able to switch to manual mode and general flight planning issues.\\
 
-One test with a altitude of 30 meters above ground was tested, but had to be switched to manual mode
-and landed as there was too much wind.\\
+One test with a altitude of 30 meters above ground was tested, but had to be switched to manual
+modeand landed as there was too much wind.\\
  
 \section{Mavros}
 Since the aim of the project was to explore autonomous flight with an easy to use interface, a way
@@ -239,8 +242,8 @@ to communicate directly to the drone without APM PLanner 2.0 was needed. To do t
 \cite{Ref:Mavros} ros package was used. By running a main Mavros node it was possible to connect to
 the drones telemetry and control it.\\
 As this node was in a beta state when used there was not a lot of documentation, but by some trial
-and error it was possible to connect to the drone, arm it and upload a way point list to the pixhawk
-FCU. Data from the drone was also published on several topics which could be used for further
+and error it was possible to connect to the drone, arm it and upload a way point list to the
+pixhawkFCU. Data from the drone was also published on several topics which could be used for further
 control. ROS was used on ubuntu 14.04.\\
 The approach was as follow:
 
@@ -250,8 +253,8 @@ The approach was as follow:
 name="fcu\_url" default="/dev/ttyUSB0:57600"
 \item[2.] roslaunch the modified node and verify it is connected
 \item[3.] If it failed to get permission try "sudo chmod 666 /dev/ttyUSB0"
-\item[4.] To enable topics streamrate from pixhawk call "rosservice call /mavros/set\_stream\_rate 0
-10 1"
+\item[4.] To enable topics streamrate from pixhawk call "rosservice call /mavros/set\_stream\_rate
+010 1"
 \item[5.] To arm use "rosservice call /mavros/cmd/arming "value: true" "
 \item[6.] To load way point list use "rosrun mavros mavwp load /path/waypoints.txt" where
 waypoint.txt contains correct mavlink formatting.
@@ -269,10 +272,10 @@ search.\\
 Mavros uses a Mavlink waypoint file format for uploading waypoints.
 This format is the same as the one used by the APMPlanner2 application,
 which is able to visualize the waypoints in a satellite image.
-An application named waypointgen1 was developed for conversion between coordinate paths generated in
-Google Earth (in the .kml file format)
-and mavlink protocol formatted waypoint files. This application is based on a C++ library (contained
-in a file named waypoint.h)
+An application named waypointgen1 was developed for conversion between coordinate paths generated
+inGoogle Earth (in the .kml file format)
+and mavlink protocol formatted waypoint files. This application is based on a C++ library
+(containedin a file named waypoint.h)
 developed for simple manipulation of waypoints. The library provides functionality necessary to
 convert .kml files to waypoint files
 and to convert .csv files to waypoint files.
@@ -283,11 +286,17 @@ Both C++ applications and the library were written in Qt Creator and are cross-p
 Google Earth's .kml file format is simple if the file contains only one path or polygon.
 It follows XML layout and under the <coordinates> header, all the coordinates are listed.
 The coordinates are listed in the following format: longitude latitude altitude.
-This makes the coordinate extraction process simple: Navigate the .kml file to the <coordinates> header and tokenize the coordinate string until reaching the end of the section (indicated by </coordinates>).
+This makes the coordinate extraction process simple: Navigate the .kml file to the <coordinates>
+header and tokenize the coordinate string until reaching the end of the section (indicated by
+</coordinates>).
 
 \section{Generating search patterns}
-A search pattern generation script was developed in Matlab for use with the C++ waypoint library.
-The Matlab script, named zigzag, generates a "Zig Zag" flight pattern.
+Several search pattern generation scripts were developed in Matlab for use with the C++ waypoint
+library.
+The Matlab scripts work with 2D vectors in a cartesian coordinate system, assuming that both axes
+use the same scale. This means a UTM coordinate representation is necessary. For this, the scripts
+utilize the utm2lonlat script, Copyright (c) 2013, Erwin N.
+The Matlab script named zigzag generates a "Zig Zag" flight pattern.
 The script takes four arguments: Two coordinates, a density parameter and a search angle.
 The first coordinate is the flight starting coordinate. The second coordinate is the flight ending
 coordinate.
@@ -307,21 +316,22 @@ An example of how the search path setup looks like in Google Earth is shown in f
 	\caption[Search path setup.]{Search path setup example in Google Earth.}
 	\label{fig:googlepath}
 \end{figure}
-The procedure to generate a search path starting with Google Earth is as follows:
+The procedure to generate a zigzag search path starting with Google Earth is as follows:
 \begin{itemize}
 \item Generate a two-point path in Google Earth and export it as a .kml file.
 \item Convert the .kml file to mavlink waypoint text format using the waypointgen1 application.
-\item Run the zigzag Matlab script, giving the name of the newly generated text file as input, along
-with the search angle, density parameter and the output .csv filename.
+\item Run the zigzag Matlab script, giving the name of the newly generated text file as input,
+alongwith the search angle, density parameter and the output .csv filename.
 \item Convert the generated .csv file to mavlink waypoint text format using the csv2wp application.
 \end{itemize}
+After the UTM conversion, two bounding vectors are created at \(\pm\) half the input angle.
+The zig-zag pattern is then created within the bounding vectors, from the starting coordinate to theending coordinate. It was chosen to end the zig-zag pattern before getting further away than the
+ending coordinate.
 
-The zigzag script works with 2D vectors in a cartesian coordinate system, assuming that both axes use the same scale. This means a UTM coordinate representation is necessary. For this, the script uses the utm2lonlat script, Copyright (c) 2013, Erwin N.
-After the conversion, two bounding vectors are created at \(\pm\) half the input angle.
-The zig-zag pattern is then created within the bounding vectors, from the starting coordinate to the ending coordinate. It was chosen to end the zig-zag pattern before getting further away than the ending coordinate.
-
-Examples of outputs of the zigzag script are shown in figure \ref{fig:apmpath}. The input path is the one shown in figure \ref{fig:googlepath}.
-The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 10 degree angle and a 10 m spacing betweem back-and-forth flights, while the parameters for figure \ref{fig:apmpath2} are a 30 degree angle and a 20 m density.
+Examples of outputs of the zigzag script are shown in figure \ref{fig:apmpath}. The input path is
+the one shown in figure \ref{fig:googlepath}.
+The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 10 degree angle and a10 m spacing betweem back-and-forth flights, while the parameters for figure \ref{fig:apmpath2} are
+a 30 degree angle and a 20 m density.
 \begin{figure}[ht]
 \centering
   \begin{subfigure}[t]{0.45\textwidth}
@@ -335,9 +345,23 @@ The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 1
     \label{fig:apmpath2}
   \end{subfigure}  
 \caption[Zig-Zag pattern examples.]
-{Zig-Zag pattern examples. The pattern is generated from the path of figure \ref{fig:googlepath} using the zigzag script.}
+{Zig-Zag pattern examples. The pattern is generated from the path of figure \ref{fig:googlepath}
+using the zigzag script.}
 \label{fig:apmpath}
 \end{figure}
 
+Another search pattern generation Matlab script, named spiral, takes two input coordinates and a
+density parameter like the zigzag script, and generates an Archimedian spiral of waypoints from the
+starting point, extending outwards, with the input spacing, until the radius is equal to the
+distance to the ending point.
+Figure \ref{fig:spiral50m} shows an example of a spiral generated from the example path of figure
+\ref{fig:googlepath}. The spacing between turns is 50 m.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{Images/spiral50m}
+	\caption[Spiral pattern example.]{Spiral pattern example generated from the path of figure
+		\ref{fig:googlepath} with a 50 m spacing between turns.}
+	\label{fig:spiral50m}
+\end{figure}
 
 \newpage
