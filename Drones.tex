@@ -1,10 +1,19 @@
 \chapter{Autonomous flight}
-The following sections introduces the selection, set up and how autonomous flight was achieved.
+The following sections introduces the selection, setup and how autonomous flight was achieved on the Iris+.
 
 \section{Drone selection}
-To fulfil the vision of and easy to use and readily available drone platforms the drone selection could be narrowed down quite easily. As the primary focus of the of the project was to explore autonomous flight other concerns such as resistance to rough weather could be neglected. \\
+To fulfil the vision of using an easy to use and readily available drone platforms, the drone selection could be narrowed down quite easily. As the primary focus of the  project was to explore autonomous flight, other concerns such as resistance to rough weather could be neglected. \\
 During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
-The obvious choice between the 2 drones was the Iris+ as it used the open source Pixhawk FCU \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.\\
+The obvious choice between the 2 drones were the Iris+, as it used the open source pixhawk FCU \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.\\
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{./Images/iris}
+  \caption{TThe Iris+ drone.}
+  \label{fig:iris}
+\end{figure}
+
+\newpage
 
 The main features and components of the Iris+ drone used for this project are:
 \begin{itemize}
@@ -16,17 +25,12 @@ The main features and components of the Iris+ drone used for this project are:
 \item Feature rich ground control software.
 \end{itemize}
 
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.65\textwidth]{./Images/iris}
-  \caption{TThe Iris+ drone.}
-  \label{fig:iris}
-\end{figure}
+
 
 
 \section{Setup}
 \subsection*{Radio Controller}
-The first part of the set up was to bind the Radio Controller. The receiver used is the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky} and can be seen on figure \ref{fig:irisInside}\\ 
+The first part of the setup was to bind the radio controller to the radio receiver. The receiver used was the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky} and can be seen on figure \ref{fig:irisInside}\\ 
 To bind the controller the hood of the drone had to be taken off to access the radio receiver. Then the steps are as follows:
 \begin{itemize}
 \item[1.] Turn on the radio transmitter while down the button on the back of the radio transmitter.
@@ -35,14 +39,14 @@ To bind the controller the hood of the drone had to be taken off to access the r
 \item[4.] Release the F/S button once the radio receiver LED is flashing red and green.
 \item[5.] Power off drone.
 \item[6.] Power off radio transmitter.
-\item[7.] If bind is done correctly the radio receiver LED should be solid green when connected to the radio transmitter and the LED blink red when data is transferred.
+\item[7.] If the bind is done correctly the radio receiver LED should be solid green when connected to the radio transmitter and the LED blink red when data is transferred.
 \end{itemize}
-For further assistance the first part of the following video i suggested \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
+For further assistance the first part of the following video is suggested \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=0.65\textwidth]{./Images/insideIRIS}
-  \caption{The Iris+ drone inside.The red rectangles marks the telemetry and the blue rectangle mark the radio receiver.}
+    \includegraphics[width=0.75\textwidth]{./Images/insideIRIS}
+  \caption{The insides of the Iris+ drone. The red rectangles marks the telemetry and the blue rectangle mark the radio receiver.}
   \label{fig:irisInside}
 \end{figure}
 
@@ -53,23 +57,23 @@ When connected the green LED should be solid and the red LED should blink whenev
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=0.65\textwidth]{./Images/telem}
+    \includegraphics[width=0.75\textwidth]{./Images/telem}
   \caption{Used telemetry configurations.}
   \label{fig:telem}
 \end{figure}
 
 \subsection*{Gimbal}
-Since pictures had to be taken during flight and as these pictures had to be good enough to use computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The gimbal adds extra weight to the drone and uses extra power from the battery to power the motors. Both of these factors leads to a significant decrease in flight time.\\
+Since pictures had to be taken during flight and as these pictures had to be good enough to use computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The gimbal adds extra weight to the drone and uses extra power from the battery to power the two motors. Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
 \subsection*{APM Planner 2.0}
-The firmware for the pixhawk was a choice between the original px4 and arducopter \cite{Ref:Arducopter}. As 3DR adviced to flash the arducopter firmware and it features several features not available through the px4, arducopter was the clear choice.\\
-To communicate with the arducopter firmware for calibration purposes and as a general interface APM Planner 2.0 was used \cite{Ref:APM2}. This software was run on OSX Yosemite and proved to have several crashes during calibration and firmware flashing. The best solution found for this problem was a simple reboot. While running the flight data mode where it communicated with the drone by telemetry it was very stable and responsive.\\
-The APM planner 2.0 software was primarily used for calibration and waypoint planning which was a build in feature in the arducopter firmware.\\
-All of the setup for the pixhawk FCU was done under initial setup in the APM planner 2.0.
+The firmware for the pixhawk was a choice between the original px4 and arducopter \cite{Ref:Arducopter}. As 3DR adviced to flash the arducopter firmware and it contains several features not available through the px4, arducopter was the clear choice.\\
+To communicate with the arducopter firmware for calibration purposes and as a general interface APM Planner 2.0 was used \cite{Ref:APM2}. This software was used on OSX Yosemite and proved to have several crashes during calibration and firmware flashing. The best solution found for this problem was a simple reboot. While running the flight data mode where it communicated with the drone by telemetry it was very stable and responsive.\\
+The APM planner 2.0 software was primarily used for calibration and way point planning which was a build in feature in the arducopter firmware.\\
+All of the setup for the pixhawk FCU was done under the initial setup menu in the APM planner 2.0.
 
 \subsection*{Calibration}
 
-After flashing the drone with new firmware and before every flight with the drone at a new location the drone was recalibrated. A proper calibration was a key element in securing accurate and safe flight with the drone. It is of great importance that the rotors are removed doing calibrations as unpredictable behaviour sometimes can occur.\\
+After flashing the drone with new firmware and before every flight with the drone at a new location the drone was recalibrated. A proper calibration was a key element in securing accurate and safe flight with the drone. It is of great importance that the rotors are removed doing calibrations as unpredictable behaviour sometimes occur.\\
 The 4 mandatory calibrations that had to be done were:
 \begin{itemize}
 \item Frame type
@@ -78,7 +82,7 @@ The 4 mandatory calibrations that had to be done were:
 \item Radio calibration
 \end{itemize}
 
-To calibrate for the physical appearance of the drone the proper frame type has to be selected. This is done under the "initial setup" menu where "Frame type" should be selected. The proper frame type is selected and then downloaded. This sets all the parameters for the specific drone type. For this project the iris+ with tarot gimbal was used.\\
+To calibrate for the physical appearance of the drone the proper frame type had to be selected. This is done under the "initial setup" menu where "Frame type" should be selected. The proper frame type is selected and then downloaded. This sets all the parameters for the specific drone type. For this project the iris+ with tarot gimbal was used.\\
 
 The compass calibration involves rotating the drone around all axes to fill in the calibration matrix. The matrix and all the calculations are handled by APM Planner 2.0. First the pixhawk is selected in the menu and the live calibration is chosen. This will give you a minute to rotate the drone around all axes. It is advised to power the drone with battery as the wire might get tangled up and make the calibration more complicated. Sometimes several crashes were encountered doing the calibration process for no apparent reason.\\
 
@@ -86,12 +90,12 @@ The calibration of the accelerometer was pretty straight forward. To calibrate t
 
 The last mandatory calibration needed is the radio calibration. When the radio is turned on and properly connected to the drone the radio calibration can be initiated. All of the control sticks and switches are moved to its outer positions.  The process can be followed on the GUI to see if everything is working properly. After moving everything to its outer position the throttle stick is moved down while the other stick is in its center position.\\
 
-All of these calibrations are of great importance in order to fly the iris drone properly. Several problems were encountered due to bad calibration and not checking everything without rotors. If anything seems off during the initial flight or testing without rotors it is suggested to either do a complete recalibration or re-flashing with the newest software. A guide for the mandatory calibration can be found at \url{http://copter.ardupilot.com/wiki/initial-setup/configuring-hardware/} it should however be noted that some elements are a bit outdated in this guide.
+All of these calibrations are of great importance in order to fly the iris+ drone properly. Several problems were encountered due to bad calibration and not checking everything without rotors. If anything seems off during the initial flight or testing without rotors it is suggested to either do a complete recalibration or re-flashing with the newest software. A guide for the mandatory calibration can be found at \url{http://copter.ardupilot.com/wiki/initial-setup/configuring-hardware/} it should however be noted that some elements are a bit outdated in this guide.
 
 \subsection*{Flight modes}
 As the arducopter firmware has several different flight modes and the pre set flight modes does not match the desired flight modes for this project they have to be changed. The desired flight modes are stabilize and auto-hold for manual modes and auto mode for autonomous flight. It is important to set these flight modes to overrule the autonomous flight if anything is not going according to plan.\\
 As different radio controllers are available one should always check that the flight modes are mapped to the used controller as desired, without rotors.\\
-To additional fly modes were used to easily land the drone and to return the drone to the position it was armed at. These modes were land and return to land (RTL). The land flight mode performs a landing at the current spot, disabling the throttle switch but enabling control of the position stick.\\
+Two additional fly modes were used to easily land the drone and to return the drone to the position it was armed at. These modes were land and return to land (RTL). The land flight mode performs a landing at the current spot, disabling the throttle switch but enabling control of the position stick.\\
 
 \subsection*{Fail safe}
 To control the behaviour in case of a malfunction on the radio controller side or the drone running low on battery, the fail safe options have to be set. The software will give a warning to dismount the rotors doing this setup. This is important as the motors are controllable in this mode.\\
@@ -142,11 +146,11 @@ During the test day the wind was decent which resulted in a slower flight agains
 
 Several initial tests had been done without success due to either safety issues concerning being able to switch to manual mode and general flight planning issues.\\
 
-One test with a altitude of 30 meters above ground was tested but had to be switched to manual mode and landed as there was too much wind.\\
+One test with a altitude of 30 meters above ground was tested, but had to be switched to manual mode and landed as there was too much wind.\\
  
 \section{Mavros}
-Since the aim of teh project was to explore autonomous flight with an easy to use interface a way to communicate directly to the drone without APM PLanner 2.0 was needed. To do this the Mavros \cite{Ref:Mavros} ros package was used. By running a main Mavros node it was possible to connect to the drones telemetry and control it.\\
-As this node was in a beta state when used there was not a lot of documentation but by some trial and error it was possible to connect to the drone, arm it and upload a way point list to the pixhawk FCU. Data from the drone was also published on several topics which could be used for further control. ROS was only used on ubuntu 14.04.\\
+Since the aim of the project was to explore autonomous flight with an easy to use interface, a way to communicate directly to the drone without APM PLanner 2.0 was needed. To do this the Mavros \cite{Ref:Mavros} ros package was used. By running a main Mavros node it was possible to connect to the drones telemetry and control it.\\
+As this node was in a beta state when used there was not a lot of documentation, but by some trial and error it was possible to connect to the drone, arm it and upload a way point list to the pixhawk FCU. Data from the drone was also published on several topics which could be used for further control. ROS was used on ubuntu 14.04.\\
 The approach was as follow:
 
 \begin{itemize}
