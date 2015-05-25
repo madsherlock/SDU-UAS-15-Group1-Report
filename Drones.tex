@@ -258,6 +258,14 @@ waypoint.txt contains correct mavlink formatting.
 
 \end{itemize}
 
+The tests mentioned in previous section was with way points uploaded via mavros.\\
+Getting the basics of uploading way points and arming the drone to work with implemented rosrun
+functions was simple once the syntax was mastered. Implementing this into a joint program with a
+path generation algorithm would be trivial. This could result in an easy to use GUI application
+which took a simple coordinate as an input and an altitude and the autonomously flew the drone to
+search.\\
+
+\section{Mavros waypoint file generation}
 Mavros uses a Mavlink waypoint file format for uploading waypoints.
 This format is the same as the one used by the APMPlanner2 application,
 which is able to visualize the waypoints in a satellite image.
@@ -270,30 +278,25 @@ convert .kml files to waypoint files
 and to convert .csv files to waypoint files.
 The second application developed in C++ is named csv2wp, and converts .csv files containing
 latitudes, longitudes and altitudes to mavlink waypoint text files.
+Both C++ applications and the library were written in Qt Creator and are cross-platform compatible.
 
-The tests mentioned in previous section was with way points uploaded via mavros.\\
-Getting the basics of uploading way points and arming the drone to work with implemented rosrun
-functions was simple once the syntax was mastered. Implementing this into a joint program with a
-path generation algorithm would be trivial. This could result in an easy to use GUI application
-which took a simple coordinate as an input and an altitude and the autonomously flew the drone to
-search.\\
-The next section will describe how such a search pattern generator was developed and used, using the
-waypoint library described above.
+Google Earth's .kml file format is simple if the file contains only one path or polygon.
+It follows XML layout and under the <coordinates> header, all the coordinates are listed.
+The coordinates are listed in the following format: longitude latitude altitude.
+This makes the coordinate extraction process simple: Navigate the .kml file to the <coordinates> header and tokenize the coordinate string until reaching the end of the section (indicated by </coordinates>).
 
 \section{Generating search patterns}
 A search pattern generation script was developed in Matlab for use with the C++ waypoint library.
 The Matlab script, named zigzag, generates a "Zig Zag" flight pattern.
-The script takes four arguments: Three coordinates and a search angle.
+The script takes four arguments: Two coordinates, a density parameter and a search angle.
 The first coordinate is the flight starting coordinate. The second coordinate is the flight ending
 coordinate.
 The search angle describes how the search zone from starting coordinate to ending coordinate
-expands.
+expands in a conic manner.
 For example, a search angle of 0 would mean the flight path is straight from starting coordinate to
 ending coordinate.
-The third coordinate, named the density coordinate, is placed near the starting coordinate, and is
-used by the script to calculate the spacing
-between the back and forth zig zag flights. This means that if the third coordinate is placed very
-close to the starting coordinate,
+The density parameter indicates the spacing between the back and forth zig zag flights.
+A small density parameter will place the flights close to each other so that
 the flight path will be very long and go back and forth a lot of times before reaching the ending
 coordinate.
 An example of how the search path setup looks like in Google Earth is shown in figure
@@ -306,14 +309,35 @@ An example of how the search path setup looks like in Google Earth is shown in f
 \end{figure}
 The procedure to generate a search path starting with Google Earth is as follows:
 \begin{itemize}
-\item Generate a three-point path in Google Earth and export it as a .kml file.
+\item Generate a two-point path in Google Earth and export it as a .kml file.
 \item Convert the .kml file to mavlink waypoint text format using the waypointgen1 application.
 \item Run the zigzag Matlab script, giving the name of the newly generated text file as input, along
-with the search angle and the output .csv filename.
+with the search angle, density parameter and the output .csv filename.
 \item Convert the generated .csv file to mavlink waypoint text format using the csv2wp application.
 \end{itemize}
 
-Comparison figures here!
+The zigzag script works with 2D vectors in a cartesian coordinate system, assuming that both axes use the same scale. This means a UTM coordinate representation is necessary. For this, the script uses the utm2lonlat script, Copyright (c) 2013, Erwin N.
+After the conversion, two bounding vectors are created at \(\pm\) half the input angle.
+The zig-zag pattern is then created within the bounding vectors, from the starting coordinate to the ending coordinate. It was chosen to end the zig-zag pattern before getting further away than the ending coordinate.
+
+Examples of outputs of the zigzag script are shown in figure \ref{fig:apmpath}. The input path is the one shown in figure \ref{fig:googlepath}.
+The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 10 degree angle and a 10 m spacing betweem back-and-forth flights, while the parameters for figure \ref{fig:apmpath2} are a 30 degree angle and a 20 m density.
+\begin{figure}[ht]
+\centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width = \textwidth]{Images/apmpath10}
+    \caption{10 degree angle and 10 m density.}
+    \label{fig:apmpath1}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width = \textwidth]{Images/apmpath30}
+    \caption{30 degree angle and 20 m density.}
+    \label{fig:apmpath2}
+  \end{subfigure}  
+\caption[Zig-Zag pattern examples.]
+{Zig-Zag pattern examples. The pattern is generated from the path of figure \ref{fig:googlepath} using the zigzag script.}
+\label{fig:apmpath}
+\end{figure}
 
 
 \newpage
