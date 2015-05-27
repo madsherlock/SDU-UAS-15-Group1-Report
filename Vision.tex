@@ -47,14 +47,7 @@ In the view of the arguments above, the final solution was decided to perform hu
 In order to guarantee a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. 
 
 This color model is based on a set of 140 training patches of skin images used to analyze the properties and
-distribution of this color in RGB, HSV and YCbCr spaces.  These training pathches has been exposed to either normal uniform illumination, daylight illumination (outdoors) or flashlight illumination (under dark conditions), such that values extracted from them becomes somewhat invariant towards different form of illumination. These training patches has been cropped such that their skin is only visible, and been analyzed on. 
-
-\begin{figure}[H]
-\centering 
-\includegraphics[width=0.6\textwidth]{Images/TrainingPATCH}
-\caption{An expample of training patch}
-\label{fig:cropImagePatch}
-\end{figure}
+distribution of this color in RGB, HSV and YCbCr spaces.  These training pathches has been exposed to either normal uniform illumination, daylight illumination (outdoors) or flashlight illumination (under dark conditions). 
 As a result of the training, specific constraints in the subspaces have been determined, so that a general skin color model invariant to illumination and ethnicity was yielded. 
 The model is given by the set of bounding rules in the three subspaces in equations \ref{eq:rule1}, \ref{eq:rule2}, \ref{eq:rule3} and \ref{eq:rule4}, explained below.
 
@@ -253,7 +246,7 @@ These mistakes are not critical though since the process includes, as said in th
 
 \section{Conclusion}
 
-An algorithm capable of detection human far away in the ocean has been developed.  The algorithm uses a skin color model to detect humans, making it robust and able to distinguish between a human other items. The skin color model, from the report \cite{Ref:SkinDetection} is based from different form of illuminations,  making it somewhat invariant to illumination differences.  The algorithm has been tested with different images found on the internet, at which it perform well. It is capable distinct between Human and animals as seen \ref{fig:humanAndDolphin}.  The hardware which has been chosen as works well on a moving background, and thereby capable of retrieving footage which can be analyzed. 
+An algorithm capable of detection human far away in the ocean has been developed.  The algorithm uses a skin color model to detect humans, making it robust and able to distinguish between a human other items. The skin color model, from the report \cite{Ref:SkinDetection} is based from different form of illuminations,  making it somewhat invariant to illumination differences.  The algorithm has been tested with different images found on the internet, at which it perform well. It is capable distinct between Human and animals as seen \ref{fig:humanAndDolphin}.   The hardware which has been chosen as works well on a moving background, and thereby capable of retrieving footage which can be analyzed. 
 
 \subsection{Further work} 
 In order to constrain the scope of the project, it was assumed from the beginning that a successful offline performance of the application in a laptop processing a video could be extrapolated to good results for online performance. 
