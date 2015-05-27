@@ -1,44 +1,44 @@
 \chapter*{Introduction}
-
-This report was written as a part of the course  SDU-UAS-Intro 2015 and presents the work of group 1. 
+This report was written as part of the course SDU-UAS-Intro 2015 and presents the work of group 1. 
 The aim of the developed system is to enable an existing drone model to easily be configured and
 programmed for performing offshore vision aided patrolling. 
-The used equipment was a Iris+ drone with a mounted gimbal with a go pro camera.
-This enabled the drone to get visual data from restricted, user-specified areas at some distance from the shore.
-During its watch, if any human being is detected on this area, the drone stores the acquired images and send
-them on the fly to the ground station to be analysed by the user and activate the rescue protocols. 
-
-
+The used equipment was a 3DR Iris+ drone with a gimbal mounted Go Pro camera.
+This enabled the drone to get visual data from %restricted,
+user-specified areas. %at some distance from the shore.
+During its watch, if any human being is detected on this area, the drone should store the acquired images and send
+them to the ground control station on the fly, to be analysed by the user and activate the rescue protocols.
 
 \section*{Motivation}
-Patrolling and ensuring safety at remote and humanly inaccessible areas such as the sea has for a long time
-been a difficult task requiring expensive equipments and many man hours, which can be seen from \cite{Ref:Drone2}.
+Patrolling and ensuring safety at remote and humanly inaccessible areas such as the sea has 
+been a difficult task for a long time, requiring expensive equipments and many man hours,
+see \cite{Ref:Drone2}.
 With the recent development of readily accessible drones, which are easy to use and fairly simple to operate,
 a revolution within the area of life guarding seems within reach. 
 
-Utilizing the drones capability of operating and monitoring humanly inaccessible areas to control coast areas
+Utilizing the drone's capability of operating and monitoring humanly inaccessible areas to control coast areas
 could not only result in a more safe coast environment, but also a decreased cost in regards to life saving.
-The use of drones in regards to emergencies and rescues has already showed promising results
-\cite{Ref:Drone1} \cite{Ref:Drone3} \cite{Ref:Drone4} \cite{Ref:DroneResearch1} \cite{Ref:DroneResearch1},
+The use of drones in regards to emergencies and rescue missions has already showed promising results
+\cite{Ref:Drone1}, \cite{Ref:Drone3}, \cite{Ref:Drone4}, \cite{Ref:DroneResearch1}, \cite{Ref:DroneResearch1},
 but mostly using humanly controlled flights.
 
-The vision is to explore the possibilities of an easy to use and implement drone that fly autonomously within the specified area.
+The vision is to explore the possibilities of making an easy to use patrolling system
+and making a drone fly autonomously within a specified area.
 Using computer vision to detect changes in the current scene or movement it should report back with images from the scene.
 The images can then be processed by a professional. As this project is considered a research project the material presented
-will be limited to the area of autonomous flight in good flying conditions and computer vision.
+will be limited to the areas of autonomous flight in good flying conditions and computer vision.
 \\ 
-Using this approach a minimum amount of man hours is needed while the possibilities of autonomous drone flight will be utilized.
+Using this approach, a minimum amount of man hours is needed, while the possibilities of autonomous drone flight will be utilized.
 \\
-To ensure efficiency the group was divide into two subgroups one for the Autonomous flight and one for the Computer Vision.
+To ensure efficiency, the group was divided into two subgroups: One for the Autonomous flight and one for the Computer Vision.
 A graph displaying work distribution and contributions to the report can be seen in Appendix A
 
 \newpage
-\section*{Acronyms}
+\section*{Abbreviations}
 \begin{acronym}[AWGN]
-\acro{UAS}{Unmanned Aerial Systems}
-\acro{ROS}{Robotics Operation System} 
+\acro{UAS}{Unmanned Aerial System}
+\acro{ROS}{Robot Operating System} 
 \acro{UART}{Universal asynchronous receiver/transmitter} 
-\acro{RTL}{Return to land} 
+\acro{RTL}{Return to launch} 
 \acro{RC}{Remote Control}
 \acro{FCU}{Flight Controller Unit}
 \acro{FOV}{Field of view}
