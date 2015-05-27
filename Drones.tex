@@ -1,21 +1,22 @@
 \chapter{Autonomous flight}
-The following sections introduces the selection, setup and how autonomous flight was achieved on
+The following sections introduce the selection, setup and how autonomous flight was achieved on
 the Iris+.
 
 \section{Drone selection}
-To fulfill the vision of using an easy to use and readily available drone platforms,
-the drone selection could be narrowed down quite easily. As the primary focus of the project was to
+To fulfill the vision of using an easy to use and readily available drone platform,
+the drone selection was quickly narrowed down what was at hand. As the primary focus of the project was to
 explore autonomous flight, other concerns such as resistance to rough weather could be neglected.
-\\During the course 2 drones matching the giving requirements were introduced: The dji Phantom 2
+\\During the course, two drones matching the giving requirements were introduced: The DJI Phantom 2
 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
-The obvious choice between the 2 drones were the Iris+, as it used the open source pixhawk FCU
+The obvious choice between the 2 drones was the Iris+, as it used the open source pixhawk FCU
 \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with
-many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.\\
+many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.
+\\
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{./Images/iris}
-  \caption{TThe Iris+ drone.}
+  \caption{The 3DR Iris+ drone.}
   \label{fig:iris}
 \end{figure}
 
@@ -27,30 +28,30 @@ The main features and components of the Iris+ drone used for this project are:
 \item Payload capacity of 400g.
 \item Manual remote control.
 \item Telemetry link.
-\item Autonomous way point navigation.
+\item Autonomous waypoint navigation.
 \item Feature rich ground control software.
 \end{itemize}
-
 
 
 
 \section{Setup}
 \subsection*{Radio Controller}
 The first part of the setup was to bind the radio controller to the radio receiver. The receiver
-used was the $2.4 Ghz$ Frsky D4R-2 Reciever \cite{Ref:FrSky} and can be seen on figure
-\ref{fig:irisInside}\\
-To bind the controller the hood of the drone had to be taken off to access the radio receiver. Then
-the steps are as follows:
-\begin{itemize}
-\item[1.] Turn on the radio transmitter while down the button on the back of the radio transmitter.
-\item[2.] Once the remote is beeping let go of the button on the back.
-\item[3.] Power up the drone while holding down the F/S button on the radio receiver.
-\item[4.] Release the F/S button once the radio receiver LED is flashing red and green.
-\item[5.] Power off drone.
-\item[6.] Power off radio transmitter.
-\item[7.] If the bind is done correctly the radio receiver LED should be solid green when connected
+used was the $2.4 Ghz$ FrSky D4R-II Reciever \cite{Ref:FrSky} and can be seen on figure
+\ref{fig:irisInside}.
+\\
+To bind the controller, the hood of the drone has to be taken off to access the radio receiver.
+The next steps are as follows:
+\begin{enumerate}
+\item Turn on the radio transmitter while down the button on the back of the radio transmitter.
+\item Once the remote is beeping let go of the button on the back.
+\item Power up the drone while holding down the F/S button on the radio receiver.
+\item Release the F/S button once the radio receiver LED is flashing red and green.
+\item Power off drone.
+\item Power off radio transmitter.
+\item If the bind is done correctly the radio receiver LED should be solid green when connected
 to the radio transmitter and the LED blink red when data is transferred.
-\end{itemize}
+\end{enumerate}
 For further assistance the first part of the following video is suggested
 \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
 
