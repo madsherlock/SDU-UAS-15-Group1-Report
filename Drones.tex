@@ -238,64 +238,68 @@ radius and the orientation of the drone was always in the direction of flight.
   \label{fig:HCAPath}
 \end{figure}
 
-During the test day the wind was decent which resulted in a slower flight against the wind but the
-overall performance of the drone was good as it flew the described route. \\
+On the day of the test, moderate winds were present, which resulted in a slower flight against the wind but the
+overall performance of the drone was good as it followed the designated route,
+indicating its usefulness in patrolling applications.
 
 Several initial tests had been done without success due to either safety issues concerning being
-able to switch to manual mode and general flight planning issues.\\
+able to switch to manual mode and general flight planning issues.
 
-One test with a altitude of 30 meters above ground was tested, but had to be switched to manual
-modeand landed as there was too much wind.\\
+One test with an altitude of 30 meters above ground was tested, but had to be switched to manual
+mode and landed as there was too much wind.
  
 \section{Mavros}
 Since the aim of the project was to explore autonomous flight with an easy to use interface, a way
-to communicate directly to the drone without APM PLanner 2.0 was needed. To do this the Mavros
-\cite{Ref:Mavros} ros package was used. By running a main Mavros node it was possible to connect to
-the drones telemetry and control it.\\
-As this node was in a beta state when used there was not a lot of documentation, but by some trial
-and error it was possible to connect to the drone, arm it and upload a way point list to the
-pixhawkFCU. Data from the drone was also published on several topics which could be used for further
+to communicate directly with the drone without APM PLanner 2.0 was needed. To do this the Mavros
+\cite{Ref:Mavros} ROS package was used. By running a main Mavros node it was possible to connect to
+the drone's telemetry and control it.
+
+As this node was in a beta state when used, there was not a lot of documentation, but by some trial
+and error it was possible to connect to the drone, arm it and upload a waypoint list to the
+pixhawk FCU. Data from the drone was also published on several topics which could be used for further
 control. ROS was used on ubuntu 14.04.\\
-The approach was as follow:
+The approach was as follows:
+\begin{enumerate}
+\item Modify the apm2.launch file's url to reflect the telemetry port and baud rate, e.g. arg
+name="fcu\_url" default="/dev/ttyUSB0:57600".
+\item roslaunch the modified node and verify it is connected.
+\item If it failed to get permission try "sudo chmod 666 /dev/ttyUSB0", setting permissions on the serial port.
+\item To enable topics, set streamrate from pixhawk by calling "rosservice call /mavros/set\_stream\_rate
+010 1".
+\item To arm, use "rosservice call /mavros/cmd/arming "value: true" ".
+\item To load waypoint list use "rosrun mavros mavwp load /path/waypoints.txt" where
+waypoint.txt contains correctly MAVLink formatted waypoints.
+\end{enumerate}
 
-\begin{itemize}
-
-\item[1.] Modify the apm2.launch files url to reflect the telemetry port and baud rate e.g. arg
-name="fcu\_url" default="/dev/ttyUSB0:57600"
-\item[2.] roslaunch the modified node and verify it is connected
-\item[3.] If it failed to get permission try "sudo chmod 666 /dev/ttyUSB0"
-\item[4.] To enable topics streamrate from pixhawk call "rosservice call /mavros/set\_stream\_rate
-010 1"
-\item[5.] To arm use "rosservice call /mavros/cmd/arming "value: true" "
-\item[6.] To load way point list use "rosrun mavros mavwp load /path/waypoints.txt" where
-waypoint.txt contains correct mavlink formatting.
-
-\end{itemize}
-
-The tests mentioned in previous section was with way points uploaded via mavros.\\
+The tests mentioned in the previous section were with waypoints uploaded via mavros.\\%Isn't this kind of a direct lie? ??
 Getting the basics of uploading way points and arming the drone to work with implemented rosrun
-functions was simple once the syntax was mastered. Implementing this into a joint program with a
-path generation algorithm would be trivial. This could result in an easy to use GUI application
-which took a simple coordinate as an input and an altitude and the autonomously flew the drone to
-search.\\
+functions was simple once the syntax was mastered.
+Implementing this into a joint program with a
+path generation algorithm would be trivial.
+This could result in an easy to use GUI application
+which takes a simple coordinate and an altitude as input,
+and then sending the drone to search the nearby area.
 
 \section{Mavros waypoint file generation}
 \label{waypointgen}
-Mavros uses a Mavlink waypoint file format for uploading waypoints.
-This format is the same as the one used by the APMPlanner2 application,
+Mavros uses a specific MAVLink waypoint file format for uploading waypoints.
+This format follows the MAVLink protocol, which can also be used to send other commands than waypoints.
+The format is the same as the one used by the APM Planner 2.0 application,
 which is able to visualize the waypoints in a satellite image.
+Thus, an easy way to learn the basics of the waypoint file format
+is to study waypoint files exported from APM Planner 2.0.
 An application named waypointgen1 was developed for conversion between coordinate paths generated
-inGoogle Earth (in the .kml file format)
-and mavlink protocol formatted waypoint files. This application is based on a C++ library
-(containedin a file named waypoint.h)
-developed for simple manipulation of waypoints. The library provides functionality necessary to
-convert .kml files to waypoint files
-and to convert .csv files to waypoint files.
+in Google Earth's .kml file format
+and MAVLink protocol formatted waypoint files.
+This application is based on a C++ library also developed, contained in a file named waypoint.h,
+for simple manipulation of waypoints.
+The library provides functionality necessary to
+convert .kml files and .csv files to waypoint files.
 The second application developed in C++ is named csv2wp, and converts .csv files containing
-latitudes, longitudes and altitudes to mavlink waypoint text files.
-Both C++ applications and the library were written in Qt Creator and are cross-platform compatible.
+latitudes, longitudes (in degrees) and altitudes to MAVLink waypoint text files.
+Both C++ applications and the library were written using Qt Creator and are cross-platform compatible.
 
-Google Earth's .kml file format is simple if the file contains only one path or polygon.
+Google Earth's .kml file format is simple to read if the file contains only one path or polygon.
 It follows XML layout and under the <coordinates> header, all the coordinates are listed.
 The coordinates are listed in the following format: longitude latitude altitude.
 This makes the coordinate extraction process simple: Navigate the .kml file to the <coordinates>
@@ -305,10 +309,17 @@ header and tokenize the coordinate string until reaching the end of the section 
 \section{Generating search patterns}
 Several search pattern generation scripts were developed in Matlab for use with the C++ waypoint
 library.
-The Matlab scripts work with 2D vectors in a cartesian coordinate system, assuming that both axes
+The Matlab scripts work with vectors in a cartesian coordinate system, assuming that both horizontal axes
 use the same scale. This means a UTM coordinate representation is necessary. For this, the scripts
 utilize the utm2lonlat script, Copyright (c) 2013, Erwin N.
+
 The Matlab script named zigzag generates a "Zig Zag" flight pattern.
+This simple pattern is a simple example of an overseas search pattern, as it widens as it progresses forwards.
+This could be applicable to rescue missions where the location where the person went missing is known.
+From this location, the person would have followed the stream.
+The stream direction is not an exact straight line, and the geographical line of possible locations
+the person could be in expands as the stream progresses. Hence the widening search pattern.
+
 The script takes four arguments: Two coordinates, a density parameter and a search angle.
 The first coordinate is the flight starting coordinate. The second coordinate is the flight ending
 coordinate.
@@ -320,6 +331,7 @@ The density parameter indicates the spacing between the back and forth zig zag f
 A small density parameter will place the flights close to each other so that
 the flight path will be very long and go back and forth a lot of times before reaching the ending
 coordinate.
+At least two factors could influence the choice of density parameter: The stream current and the camera field of view.
 An example of how the search path setup looks like in Google Earth is shown in figure
 \ref{fig:googlepath}.
 \begin{figure}[ht]
@@ -330,8 +342,8 @@ An example of how the search path setup looks like in Google Earth is shown in f
 \end{figure}
 The procedure to generate a zigzag search path starting with Google Earth is as follows:
 \begin{itemize}
-\item Generate a two-point path in Google Earth and export it as a .kml file.
-\item Convert the .kml file to mavlink waypoint text format using the waypointgen1 application.
+\item Generate a two-point path in Google Earth (or anywhere else) and export it as a .kml file.
+\item Convert the .kml file to MAVLink waypoint text format using the waypointgen1 application.
 \item Run the zigzag Matlab script, giving the name of the newly generated text file as input,
 alongwith the search angle, density parameter and the output .csv filename.
 \item Convert the generated .csv file to mavlink waypoint text format using the csv2wp application.
