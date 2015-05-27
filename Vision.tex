@@ -47,7 +47,14 @@ In the view of the arguments above, the final solution was decided to perform hu
 In order to guarantee a robust detection, the RGB-H-CbCr human skin color model presented in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. 
 
 This color model is based on a set of 140 training patches of skin images used to analyze the properties and
-distribution of this color in RGB, HSV and YCbCr spaces. 
+distribution of this color in RGB, HSV and YCbCr spaces.  These training pathches has been exposed to either Normal uniform illumination, daylight illumination (outdoors) or flashlight illumination (under dark conditions). These training patches has been cropped such that their skin is only visible, and been analyzed on. 
+
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.6\textwidth]{Images/TrainingPATCH}
+\caption{An expample of training patch}
+\label{fig:cropImagePatch}
+\end{figure}
 As a result of the training, specific constraints in the subspaces have been determined, so that a general skin color model invariant to illumination and ethnicity was yielded. 
 The model is given by the set of bounding rules in the three subspaces in equations \ref{eq:rule1}, \ref{eq:rule2}, \ref{eq:rule3} and \ref{eq:rule4}, explained below.
 
@@ -245,7 +252,8 @@ However, there are still some particular and very seldom cases in which the visi
 These mistakes are not critical though since the process includes, as said in the statement of the project, a human in the control loop, who will be, in the last case, the one in charge of filtering out false detections before activating rescue procedures.
 
 \section{Conclusion}
-The Algorithm which has been develeploped is capable of detecting humans in the Ocean.  It has been deemed fit within the criteria which was proposed at the begining.   The keypoint of the algorithm consist of the use of the Skin color detection.  The skin color detector is filter which filter out skin color is not categorised as human skin, and leaves the rest. It is thereby possible to not Only detect human but also determine if what camera is looking at actually is the Human or not.  
+
+An Algorithm capable of detection human far away in the ocean has been developed.  The algorithm uses a skin color model to detect humans, making it robust and able to distinguish between a human other items.   As the results also shows.  The skin color model, from the report \cite{Ref:SkinDetection} has been tested in different w
 
 
 \subsection{Further work} 
