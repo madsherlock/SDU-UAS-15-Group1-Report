@@ -30,6 +30,7 @@ The main features and components of the Iris+ drone used for this project are:
 \item Telemetry link.
 \item Autonomous waypoint navigation.
 \item Feature rich ground control software.
+\item Open source FCU. %We kinda say this is the main reason for selection, so why not list it in main features?
 \end{itemize}
 
 
@@ -43,23 +44,23 @@ used was the $2.4 Ghz$ FrSky D4R-II Reciever \cite{Ref:FrSky} and can be seen on
 To bind the controller, the hood of the drone has to be taken off to access the radio receiver.
 The next steps are as follows:
 \begin{enumerate}
-\item Turn on the radio transmitter while down the button on the back of the radio transmitter.
+\item Turn on the radio transmitter while holding down the button on the back of the radio transmitter.
 \item Once the remote is beeping let go of the button on the back.
 \item Power up the drone while holding down the F/S button on the radio receiver.
 \item Release the F/S button once the radio receiver LED is flashing red and green.
 \item Power off drone.
 \item Power off radio transmitter.
-\item If the bind is done correctly the radio receiver LED should be solid green when connected
-to the radio transmitter and the LED blink red when data is transferred.
+\item If the binding is done correctly the radio receiver LED should be solid green when connected
+to the radio transmitter and the LED should blink red when data is transferred.
 \end{enumerate}
-For further assistance the first part of the following video is suggested
+For further assistance the first part of the following video is suggested:
 \url{https://www.youtube.com/watch?v=5ygCbdR4FCE}.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{./Images/insideIRIS}
 \caption{The insides of the Iris+ drone. The red rectangles marks the telemetry and the blue
-rectangle mark the radio receiver.}
+rectangle marks the radio receiver.}
   \label{fig:irisInside}
 \end{figure}
 
@@ -67,39 +68,42 @@ rectangle mark the radio receiver.}
 The telemetry used is the 3DR Radio v2 \cite{Ref:Telem} operating at $433 Mhz$. The purpose of the
 telemetry is to transmit and receive data from and to the ground station via the MAVLink protocol
 \cite{Ref:MAVLink}.\\
-To connect the ground telemetry to the telemetry on the drone the 3DRRadio software was used on a
+To connect the ground telemetry to the telemetry on the drone the 3DRRadioConfig software was used on a
 windows machine. The two telemetries were connected to the PC by USB one at a time and set to the
 desired configuration. The configuration used can be seen on figure \ref{fig:telem}, where the most
-significant are the baud rate and the net id. When setting the configurations on the drone
-telemetryit is important that it is not connected to the pixhawk FCU.\\
-When connected the green LED should be solid and the red LED should blink whenever data is
+significant parameters are the baud rate and the net id. When setting the configurations on the drone
+telemetry, it is important that it is not connected to the pixhawk FCU, as this would otherwise cause connection issues.\\
+When connected, the green LED should be solid and the red LED should blink whenever data is
 transferred. The drone telemetry can now safely be connected to the pixhawk FCU again.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{./Images/telem}
-  \caption{Used telemetry configurations.}
+  \caption{Telemetry configuration used.}
   \label{fig:telem}
 \end{figure}
 
 \subsection*{Gimbal}
 Since pictures had to be taken during flight and as these pictures had to be good enough to use
-computer vision on it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The
-gimbal adds extra weight to the drone and uses extra power from the battery to power the two
-motors.Both of these factors leads to a significant decrease in flight time.\\
+computer vision on, it was decided to use the Tarot T-2D Brushless Gimbal Kit \cite{Ref:Gimbal}. The
+gimbal stabilizes the camera,
+but adds extra weight to the drone and uses extra power from the battery to power the two
+motors. Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
 \subsection*{APM Planner 2.0}
 The firmware for the pixhawk was a choice between the original px4 and arducopter
-\cite{Ref:Arducopter}. As 3DR adviced to flash the arducopter firmware and it contains several
-features not available through the px4, arducopter was the clear choice.\\
-To communicate with the arducopter firmware for calibration purposes and as a general interface APM
-Planner 2.0 was used \cite{Ref:APM2}. This software was used on OSX Yosemite and proved to have
-several crashes during calibration and firmware flashing. The best solution found for this problem
-was a simple reboot. While running the flight data mode where it communicated with the drone by
+\cite{Ref:Arducopter}. As 3DR recommend flashing the arducopter firmware, and as it contains several
+features not available in the px4 firmware, arducopter was chosen.\\
+To communicate with the arducopter firmware for calibration purposes and as a general interface,
+APM Planner 2.0 was used \cite{Ref:APM2}.
+When this software was used on OSX Yosemite it crashed several times
+during calibration and firmware flashing. The best solution found for this problem on this platform
+was a simple reboot. On Ubuntu 15.04, the software ran without problems.
+While running the flight data mode where it communicated with the drone by
 telemetry it was very stable and responsive.\\
-The APM planner 2.0 software was primarily used for calibration and way point planning which was a
-build in feature in the arducopter firmware.\\
-All of the setup for the pixhawk FCU was done under the initial setup menu in the APM planner 2.0.
+The APM planner 2.0 software was primarily used for calibration and testing of waypoint planning,
+as waypoint navigation is a built-in feature of the arducopter firmware.\\
+All of the setup for the pixhawk FCU was done under the initial setup menu in APM planner 2.0.
 
 \subsection*{Calibration}
 
