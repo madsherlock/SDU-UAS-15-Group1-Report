@@ -106,123 +106,129 @@ as waypoint navigation is a built-in feature of the arducopter firmware.\\
 All of the setup for the pixhawk FCU was done under the initial setup menu in APM planner 2.0.
 
 \subsection*{Calibration}
-
-After flashing the drone with new firmware and before every flight with the drone at a new location
-the drone was recalibrated. A proper calibration was a key element in securing accurate and safe
+After flashing the drone with new firmware, and before every flight with the drone at a new location,
+the drone was recalibrated using APM Planner 2.0.
+A proper calibration was a key element in securing accurate and safe
 flight with the drone. It is of great importance that the rotors are removed doing calibrations as
 unpredictable behaviour sometimes occur.\\
 The 4 mandatory calibrations that had to be done were:
 \begin{itemize}
-\item Frame type
+\item Frame type selection
 \item Compass calibration
 \item Accelerometer calibration
 \item Radio calibration
 \end{itemize}
 
 To calibrate for the physical appearance of the drone the proper frame type had to be selected.
-Thisis done under the "initial setup" menu where "Frame type" should be selected. The proper frame
+This is done under the "initial setup" menu where "Frame type" should be selected. The proper frame
 type
 is selected and then downloaded. This sets all the parameters for the specific drone type. For this
-project the iris+ with tarot gimbal was used.\\
+project the Iris+ with tarot gimbal was used.\\
 
 The compass calibration involves rotating the drone around all axes to fill in the calibration
-matrix. The matrix and all the calculations are handled by APM Planner 2.0. First the pixhawk is
-selected in the menu and the live calibration is chosen. This will give you a minute to rotate the
-drone around all axes. It is advised to power the drone with battery as the wire might get tangled
-up and make the calibration more complicated. Sometimes several crashes were encountered doing the
-calibration process for no apparent reason.\\
+matrix. The matrix and all the calculations are handled by APM Planner 2.0. First, the pixhawk is
+selected in the menu and the live calibration is chosen. This gives the user a minute to rotate the
+drone around all axes. It is advised to power the drone with battery during this process,
+as any wires might get tangled
+and make the calibration more complicated.
+Sometimes several crashes were encountered during the
+calibration process on OSX Yosemite for no apparent reason.\\
 
 The calibration of the accelerometer was pretty straight forward. To calibrate the the
-accelerometerthe software asks you to put the drone in 6 distinct positions and then press enter.\\
+accelerometer, the software asks you to put the drone in 6 distinct positions and then press enter.\\
 
 The last mandatory calibration needed is the radio calibration. When the radio is turned on and
 properly connected to the drone the radio calibration can be initiated. All of the control sticks
-and switches are moved to its outer positions. The process can be followed on the GUI to see if
-everything is working properly. After moving everything to its outer position the throttle stick is
+and switches are moved to their outer positions. The process can be followed on the GUI to see if
+everything is working properly. After moving everything to its outer position, the throttle stick is
 moved down while the other stick is in its center position.\\
 
-All of these calibrations are of great importance in order to fly the iris+ drone properly. Several
+All of these calibrations are of great importance in order to fly the Iris+ drone properly. Several
 problems were encountered due to bad calibration and not checking everything without rotors. If
 anything seems off during the initial flight or testing without rotors it is suggested to either do
-a complete recalibration or re-flashing with the newest software. A guide for the mandatory
+a complete recalibration or re-flashing with the newest firmware. A guide for the mandatory
 calibration can be found at
-\url{http://copter.ardupilot.com/wiki/initial-setup/configuring-hardware/} it should however be
-noted that some elements are a bit outdated in this guide.
+\url{http://copter.ardupilot.com/wiki/initial-setup/configuring-hardware/}.
+However, it should be noted that some elements of this guide are a bit outdated.
 
 \subsection*{Flight modes}
-As the arducopter firmware has several different flight modes and the pre set flight modes does not
-match the desired flight modes for this project they have to be changed. The desired flight modes
-are stabilize and auto-hold for manual modes and auto mode for autonomous flight. It is important
-toset these flight modes to overrule the autonomous flight if anything is not going according to
-plan.\\
-As different radio controllers are available one should always check that the flight modes are
+As the arducopter firmware has several different flight modes and the pre set flight modes do not
+match the desired flight modes for this project, they had to be changed.
+The desired flight modes
+are the manual modes stabilize and altitude,
+and the autonomous mode auto mode.
+It is important
+to set these flight modes, so that one can quickly overrule auto mode during flight,
+if something is not going according to plan.\\
+As different radio controllers are available, one should always check that the flight modes are
 mapped to the used controller as desired, without rotors.\\
 Two additional fly modes were used to easily land the drone and to return the drone to the position
 it was armed at. These modes were land and return to land (RTL). The land flight mode performs a
 landing at the current spot, disabling the throttle switch but enabling control of the position
-stick.\\
+stick.
 
 \subsection*{Fail safe}
 To control the behaviour in case of a malfunction on the radio controller side or the drone running
 low on battery, the fail safe options have to be set. The software will give a warning to dismount
-the rotors doing this setup. This is important as the motors are controllable in this mode.\\
-To do this the the throttle fail safe value is set approximately 30 below the lowest value of your
-throttle stick. This ensures that if radio connection is lost it will do the desired action. For
-ourcase we chose return to land.\\
-The other fail safe option is when the drone battery level goes below a certain voltage it should
-perform the desired action. Return to land was also chosen for as this action.\\
+the rotors during this setup. This is important as the motors are controllable in this mode.\\
+To do this, the the throttle fail safe value is set approximately 30 units below the lowest value of the
+throttle stick. This ensures that if radio connection is lost, it will do the desired action. For
+our case we chose return to launch.\\
+The other fail safe option is that when the drone's battery level goes below a certain voltage it should
+perform the desired action. Return to launch was also chosen as this action.\\
 The fail safe menu also provides sliders representing the values coming from the radio controller
 and the motor output. This feature was used to check if the flight modes gave the expected output
-tothe motors.
+to the motors.
 
 \section{Flight}
 To do a proper flight with the drone all of the pre arm actions have to be done. This involves
-keeping the drone in a steady position and having a good GPS lock. The drone is armed by first
-holding down the front red button on the drone, it is now ready to be armed, but not armed. The
-arming is different from controller to controller but the arming sequence on the used controller
-wasto keep the throttle in the bottom right corner. To disarm it the throttle had to be in the
+keeping the drone in a steady position and having a GPS fix. The drone is armed by first
+holding down the front red button on the drone. It is now ready to be armed, but not yet armed.
+The arming procedure varies with the controller, but the arming sequence on the used controller
+was to keep the throttle in the bottom right corner. To disarm it, the throttle had to be in the
 bottom
-left corner. The pre arm errors can be looked up on the following page
+left corner. The pre arm error messages can be looked up on the following page:
 \url{http://copter.ardupilot.com/wiki/flying-arducopter/prearm_safety_check/}. It should be noted
-that arming the drone inside can be a tedious task as a good GPS lock is required.\\
+that arming the drone indoors can be a tedious task due to the need of a GPS fix.\\
 
 \subsection{Preflight \& safety}
 During the extended testing phase several safety procedures were established. This led to a
 preflight test check list.\\
-The preflight checks in lab consisted off:
-\begin{itemize}
-\item[1.] Check firmware is the most recent stable version.
-\item[2.] Do calibrations.
-\item[3.] Set desired flight modes and fail safe settings.
-\item[4.] Check output in different flight modes with motors on (no rotors).
-\item[5.] Ensure proper connection to APM so data can be tracked in APM Planner 2.0.
-\item[6.] Mount rotors and do test flight in drone cage.
-\end{itemize}
+The preflight checks in lab consisted of:
+\begin{enumerate}
+\item Check firmware is the most recent stable version.
+\item Do calibrations.
+\item Set desired flight modes and fail safe settings.
+\item Check output in different flight modes with motors on (no rotors).
+\item Ensure proper connection to APM so data can be monitored in APM Planner 2.0.
+\item Mount rotors and perform test flight in drone cage.
+\end{enumerate}
 
-The preflight checks at the airport consisted off:
-\begin{itemize}
-\item[1.] Do calibrations.
-\item[2.] Ensure proper connection to APM so data can be tracked in APM Planner 2.0.
-\item[3.] Contact tower to get clearance to fly and get wind speed.
-\item[4.] Alert bystanders of flight.
-\item[5.] Find spot for controlled crash i case of emergency.
-\end{itemize}
+The preflight checks at the airport consisted of:
+\begin{enumerate}
+\item Do calibrations.
+\item Ensure proper connection to APM so data can be tracked in APM Planner 2.0.
+\item Contact tower to get clearance to fly and get wind speed.
+\item Alert bystanders of flight.
+\item Find spot for controlled crash i case of emergency.
+\end{enumerate}
 
 \subsection{Autonomous flight}
 To test out the autonomous flight feature on the arducopter frimware, APM planner 2.0 was used to
-plot a simple route at the airport. A route in APM Planner 2.0 was generated using way points.
+plot a simple route at the airport. A route in APM Planner 2.0 was generated using waypoints.
 Theseway points were placed at a relative altitude to the drones home position which is the arming
-position. The drone would fly a straight path to the way point and wait there for a designated
-time.It is possible to control orientation of the drones as well as proximity to the way point
-before it
-is accepted.\\
+position, also known as "launch".
+The drone would fly a straight path to the waypoints and wait there for a designated
+time before continuing.
+It is possible to control orientation of the drones as well as proximity to the waypoint
+before it is accepted.\\
 The APM Planner 2.0 software offers a collection of other actions such as loiter, set region of
-interest etc. These were not used\\
+interest etc. These were not used of this project.
+Instead, generation of waypoint list files was investigated, as described in section \ref{waypointgen}.
 
- 
 \subsection{Tests}
-The path shown on \ref{fig:HCAPath} was the one flown to test the autonomous flight. All of the way
-points were 8 meters above ground. The accepted distance to the way point was set to a 2 meter
+The path shown on figure \ref{fig:HCAPath} was the one flown to test the autonomous flight.
+All of the waypoints were 8 meters above ground. The accepted distance to the waypoint was set to a 2 meter
 radius and the orientation of the drone was always in the direction of flight.
 
 \begin{figure}[H]
@@ -274,6 +280,7 @@ which took a simple coordinate as an input and an altitude and the autonomously 
 search.\\
 
 \section{Mavros waypoint file generation}
+\label{waypointgen}
 Mavros uses a Mavlink waypoint file format for uploading waypoints.
 This format is the same as the one used by the APMPlanner2 application,
 which is able to visualize the waypoints in a satellite image.
