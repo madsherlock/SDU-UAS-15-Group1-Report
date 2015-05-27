@@ -8,4 +8,186 @@ Practical - Drone setup, tests, mavros, debugging.
 Report - Introduction, Section  2.\\
 Practical - Vision system setup, image processing algorithm design and testing.
 
+\textbf{Steffen}:\\
+Report - Aerodynamics, Abstract.\\
+Practical - Pathplanning, 
+Robo-Cage Test Pilot, Driver.
+
 \newpage
+
+\section*{Project Proposal}
+
+The Lifeguarding Drone - Group 1 project proposal\\
+\subsection*{1 DESCRIPTION}
+Patrolling and ensuring safety at remote and humanly
+ inaccessible areas such as the sea has for a long time been a difficult task requiring expensive equipment and many man hours. 
+With the recent development of readily accessible drones, which are easy to use and fairly simple to operate, 
+a revolution within the area of life guarding seems within reach.\\
+Utilizing the drones capability of 
+operating and monitoring humanly inaccessible areas
+ to control coast areas could not only 
+result in a more safe coast environment,
+ but also a decreased cost in regards to life saving.
+ The use of drones in regards to emergencies and
+ rescues has already showed promising results, 
+but mostly using humanly controlled flights.\\
+This group's vision is to explore the possibilities
+ of an easy to use and implement drone that fly 
+autonomously within the specified area. Using vision to detect people in the current scene or movement it should report back with images from
+the scene. The images can then be processed by
+ a professional.\\ Using this approach a minimum
+ amount of man hours is needed while the possibilities 
+of autonomous drone flight will be utilized.\\ 
+Furthermore, the possibilities of dropping rescuing
+ equipment will be investigated if it is found feasible.\\
+ The idea is to deal with the problem as a sum of modules
+ that can be developed individually by different group
+ members and tested together, so that the maximum group
+ efficiency can be reached while being flexible within each module.\\
+\subsection*{1.1 EXAMPLE PROBLEM: PATROLLING THE FORBIDDEN ZONE}
+In crowded beaches, the lifeguard is busy
+ watching the people in the water. 
+The people far out in the sea are at greater
+ risk than the people close to the coast due
+ to two reasons: The water is more treacherous,
+ and they are less visible from the shoreline.
+The risk needs to be limited, and this is done
+ by saying that you are not allowed to swim out
+ further than a given distance d defined by the 
+coast guard regulations / beach rules. 
+The sea should be patrolled in this “forbidden zone” 
+(some bounded area of sea further out than the distance d)
+ in order to ensure that no one is swimming there.
+ Currently, this patrolling is typically done by a manned boat.
+ We want to replace this patrolling of the sea
+ further out than d with an UAS.
+The reason: It’s cheaper to have a drone patrol 
+than a manned boat. Bear in mind that rescue teams
+ are still needed in emergencies. This drone is meant
+ as a replacement for the constant patrolling. \newline
+
+\textbf{Patrolling:}
+\begin{enumerate}
+\item The operator gives the drone a polygon defined by GPS coordinates of the area of sea to patrol.
+\item The operator selects a patrolling strategy (circle/spiral/etc) and coverage percentage.
+\item The drone will fly at an approximately
+ constant altitude (high altitude) until it detects
+ a possible person in the water.
+ Here, it employs its scene investigation strategy.
+\end{enumerate} 
+\textbf{Scene investigation:}
+\begin{enumerate}
+\item Find out if the scene contains a person: 
+Move down to a lower altitude and determine if it’s a person.
+\item If a person was found, the drone alerts a 
+ground system and performs its response task:
+\begin{itemize}
+\item Take a number (possibly 6) of pictures from different
+ angles of the scene and send them to the operator. 
+The drone flies in a circle around the scene (person)
+ and takes the pictures while keeping the person
+ within the field of view of the gimbal-mounted camera.
+\item Possible additional tasks, such as asking operator
+ if a “swim ring” or something similar should be deployed.
+\end{itemize}
+
+\item The drone returns to the high altitude and continues its patrolling. \end{enumerate}
+Regarding battery life of drone: 
+When battery level is low, the drone should return
+ to a ground station. Battery recharging and/or 
+replacement is out of scope of our project.
+Weather conditions (in the air) are not something
+ we will focus on. This makes the drone choice more trivial.
+Focus points: Intelligent path planning algorithm, useful computer vision algorithm, and innovative scene investigation strategy.
+Assumptions: The drone can communicate with the operator system and transmit (6 images) and receive (commands) the necessary data.\\
+\subsection*{2 WORK PACKAGES}
+\subsubsection*{2.1 SYSTEM DETERMINATION}
+Selection of drone platform, software platforms, hardware etc.
+Division of group into the next work packages.
+Everyone works on this work package.
+Starting point: The drone flies autonomously and sends pictures of interesting features and their GPS coordinates back to the operator. It continues on its path, and only returns to the features if the operator changes the flying path.
+Based on what the firefighters are using right now, we go with the copter approach (as opposed to the winged drone).\\
+\subsubsection*{2.2 SEPARATED WORK}
+\subsubsection*{2.2.1 Path planning: Steffen, Mikael and Mathias}
+\begin{itemize}
+\item Interface with the chosen drone.
+\item Choose/implement waypoint navigation (point to point flying) interface (eg. Google Earth)
+\item Outline GUI: Display drone intput and output in a simple way.
+\item Choose point to point flying strategy (eg. straight line)
+\item Choose scene investigation strategy.
+\item Define basic protocol for scene investigation - 
+when does it start and when does it end? 
+This is for the interaction with the feature detecction code.
+\item Implement point to point flying strategy on chosen drone.
+\item Implement scene investigation strategy on chosen drone.
+\item Make working GUI with point to point path planning and picture feed.
+\item Implement "Manual mode" with chosen drone and GUI.
+\item Implement altitude control for manual mode and for autonomous flight. 
+Take vision algorithm requirements into account.
+\item Implement the switch from point to point flying to scene investigation based on detected features.
+\item Test usability of GUI for path planning and scene investigation feedback. \end{itemize}
+
+\subsubsection*{2.2.2 Feature extraction: Keerthikan, Ignacio and Ander}
+\begin{itemize}
+\item Defining problem and how to solve it: How to solve it, 
+Resources, Embedded devices going to use, 
+Camera choice, Range definition, Flight speed, FPS, 
+Robustness check => lens check.
+\item Solving the problem on PC => code the solution:
+ Coding C++, OpenCV, Optimization
+\item Implement to the devices. – embedded device: implement the code
+\item Mounting on drone: Adjusting code according to placement of camera, Testing the setup
+\end{itemize}
+
+\subsubsection*{2.2.3 Interface specification: Everyone.}
+Very important, to make the merging of code easy and goals clear.\\
+\subsection*{2.3 SYSTEM FINALIZATION (27TH OF APRIL TO 22ND OF MAY)} 
+Merging of code and final tests.
+Everyone works on this work package.
+\subsection*{2.4 WRITING THE REPORT (22ND OF MAY TO 29TH OF MAY)}
+Everyone focus on writing the report and documenting our work.
+\subsection*{3 MILESTONES}
+17th of March: Initial choices
+\begin{itemize}
+\item Documentation of drone choice and interfacing basics.
+\item Documentation of GUI choices so far – including pictures/drawings.
+\item Documentation of the flying strategies, including the scene investigation protocol.
+\end{itemize}
+14th of April: Current source code
+\begin{itemize}
+\item Flying strategy implementation source code.
+\item Working simple GUI source code.
+\end{itemize}
+27th of April: Working, ready source code
+\begin{itemize}
+\item Documentation of “Manual mode”.
+\item Documentation of altitude control.
+\item Documentation of the GUI and the usability test results.
+\end{itemize}
+\subsection*{4 TIME PLAN}
+17th of February – 3rd of March: Selection of drone platform, software platforms, hardware etc.\\
+17th of February – 10th of March: Outline GUI displaying some drone input and output in a simple way.\\
+24th of February – 17th of March: Choose flying strategies and define some sort of protocol for the flight state transitions.\\
+3rd of March – 17th of March: Choose approach to the machine vision problem and develop a beta version of the machine vision algorithm running on a PC.\\
+17th of March – 7th of April: Implement first version of machine vision on the drone.\\
+17th of March – 14th of April: Implement code to make the drone fly with our own flying strategies for waypoint navigation and scene investigation. Simultaneously, make a simple, working GUI.\\
+7th of April – 21st of April: Optimization of implementation of machine vision code on the drone. Test machine vision code.\\
+14th of April – 21st of April: Implement altitude control.\\
+14th of April – 27th of April: Implement remaining functions, including “Manual mode”. Test usability for path planning and scene investigation feedback.\\
+27th of April – 22nd of April: Overall system testing and merging of code.\\
+\subsection*{5 HUMAN RESOURCES AND MATERIALS}
+The entire group studies Robot Systems. Keerthikan and Mikael have less visual processing experience. 
+However, as Keerthikan is writing his bachelor’s thesis on face detection, he will quickly become accustomed to computer vision throughout the semester. 
+Therefore, he, Ignacio and Ander will be working on the computer vision
+ parts of the project, combining their experiences.
+Steffen, Mikael and Mathias, having experience with the Qt framework 
+and GUI construction, will focus on the path planning parts of the project.
+This common ground makes this a robotics project, 
+and everyone will be able to help each other.\\
+IRIS+ drone: General purpose, has GPS, is known to us,
+ and it is here on TEK already.\\
+Optimal, but out of scope drone: Wind-resistant, waterproof drone.\\
+Camera: GoPro Hero4+ or GoPro Hero3 with the Tarot T-2D gimbal
+ for GoPro. This gimball works with a cable connection to the GoPro.\\ 
+IRIS+ includes a set of tall legs to use with the Tarot Gimbal. 
+Users with an original-edition IRIS will need to purchase a set of tall legs to use the gimbal (available soon).
