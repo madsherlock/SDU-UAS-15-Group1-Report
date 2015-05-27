@@ -97,7 +97,8 @@ The constraints in equation \ref{eq:rule4} are combined by an OR, becoming rule 
 \end{equation}
 
 As a result, the three rules must be accomplished by any pixel in the image to be considered human skin, and so they conform the filter.
-This filter is applied after the input has been binary segmented and  ROI's of the white blobs has been selected, as it will be detailed in the next section.
+This filter is applied after the input has been binary segmented and  ROI's of the white blobs has been selected, as it will be detailed in the next section.\\
+
 Each ROI will be subjected to the filter, and if it deems the ROI to contain a human it will be noted, otherwise ignored. 
 The filter is applied on every pixel of the image, the response of the pixel is saved in a map. 
 If the filter response deems the pixel to be something from a human it will output a white pixel if not a it will output a black pixel.  
@@ -126,7 +127,10 @@ An example of successful filtering can be seen in images \ref{fig:humanAndDolphi
     \label{fig:responsemap}
 \end{figure}
 
-Ordinary detectors such as HaarCascades, are trained to detect people within a certain pose, as this is a factor which cannot be kept consistent for the application the choice of applying this detector seemed reasonable.
+Ordinary detectors such as HaarCascades, are trained to detect people within a certain pose, as this is a factor which cannot be kept consistent for the application the choice of applying this detector seemed reasonable. \\
+
+Applying these types of filter on a image can be time comsuming, esspeacialy if the camera has a wide angled lens. This issue becomes redundant wihtin this program, as the preproccesing part creates ROI at which the filter can be applied on.   This way is computational time needed shrinken very much,  and make decision of angle of view redundant. \\
+
 
 \subsection{Preprocessing}
 The pixel-wise searching method is a very accurate but heavy process that entails a high time consumption.
@@ -239,6 +243,9 @@ The OpenCV application resulting of the implementation of the algorithm designed
 In addition it can deal automatically with illumination variations, disruption on the platform and glare effects.
 However, there are still some particular and very seldom cases in which the vision process fails. 
 These mistakes are not critical though since the process includes, as said in the statement of the project, a human in the control loop, who will be, in the last case, the one in charge of filtering out false detections before activating rescue procedures.
+
+\section{Conclusion}
+The Algorithm which has been develeploped is capable of detecting humans in the Ocean.  It has been deemed fit within the criteria which was proposed at the begining.   The keypoint of the algorithm consist of the use of the Skin color detection.  The skin color detector is filter which filter out skin color is not categorised as human skin, and leaves the rest. It is thereby possible to not Only detect human but also determine if what camera is looking at actually is the Human or not. 
 
 
 \subsection{Further work} 
