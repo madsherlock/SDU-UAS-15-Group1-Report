@@ -1,5 +1,6 @@
 \chapter{Human detection}
-Under this section, the solution adopted for the vision-based human detection part of the project,
+\label{sec:vision}
+In this section, the solution adopted for the vision-based human detection part of the project,
 the arguments that led to this approach, the assumptions made,
 the tests performed and the obtained results are presented. 
 
@@ -7,18 +8,18 @@ the tests performed and the obtained results are presented.
 Once the purpose of the vision system has been well defined,
 the operating conditions and the environment must be carefully studied in order to find the most suitable solution.
 An embedded vision system portable by a drone, robust and fast enough and with low energy consumption is required for the task. 
-The search of people in the sea entails specific problems that must be treated such as:
+The searching for people in the sea entails specific problems that must be treated such as:
 
 \begin{enumerate}[itemsep=1mm,topsep=1mm,leftmargin=.35in]
     \label{list: problem_def}
-    \item False positives due to any kind of ocean animals or rocks
-    \item Changes in illumination conditions due to outdoors work
-    \item Forecast behavior: wind, rain
-    \item Moving background and platform
-    \item Highly reflective background
+    \item False positives due to any kind of ocean animals or rocks.
+    \item Changes in illumination conditions due to outdoors work.
+    \item Forecast behavior: wind, rain.
+    \item Moving background and platform.
+    \item Highly reflective background.
 \end{enumerate}%
 
-Therefore, the election of the hardware and the vision algorithm has to be taken consequently with these points.
+Therefore, the selection of the hardware and vision algorithm has to be taken consequently with these points.
 
 \section{Equipment}
 According to the ideas above and the available resources,
@@ -28,7 +29,7 @@ This is due to the fact that any other kind of visual system
 Hence, a GoPro HERO 3 camera has been chosen as a robust, light and powerful enough solution \cite{ref:GoPro}.
 In order to deal with the instability and disruptions caused by the platform,
 the camera has been mounted on a Tarot T-2D Brushless Gimbal Kit, whose technical details
-can be found in \cite{Ref:Gimbal}, which used as a stabilizer.
+can be found in \cite{Ref:Gimbal}, which is used as a stabilizer.
 
 \subsection{GoPro HERO 3}
 The technical parameters of the chosen camera model have influenced the way
@@ -79,7 +80,6 @@ equations \ref{eq:rule1}, \ref{eq:rule2}, \ref{eq:rule3} and \ref{eq:rule4}, exp
 The RGB space constraints are obtained from \cite{Ref:SkinColorModel} and represent the skin
 color at uniform daylight illumination \ref{eq:rule1}, and under flashlight or daylight lateral
 illumination \ref{eq:rule2}. These two excluding conditions are merged into rule A by means of an OR logical condition.
-
 \begin{equation}
 		\begin{cases}
 		    (R > 95) AND (G > 40) AND (B > 20),& \text{AND}\\
@@ -139,7 +139,7 @@ An example of successful filtering can be seen in images \ref{fig:humanAndDolphi
 \begin{figure}[H]
     \centering
         \includegraphics[scale=0.7]{Images/humanDolphin.png}
-    \caption{Skin detector capable of distinguish between animals and human}
+    \caption{Skin detector capable of distinguishing between animals and humans.}
     \label{fig:humanAndDolphin}
 \end{figure}
 
@@ -154,21 +154,21 @@ An example of successful filtering can be seen in images \ref{fig:humanAndDolphi
     	\centering
 			\includegraphics[scale=0.5]{Images/roi_response2.png}
     \end{subfigure}
-    \caption{Response map of the  detected ROI}
+    \caption{Response map of the detected ROI, see figure \ref{fig:humanAndDolphin}.}
     \label{fig:responsemap}
 \end{figure}
 
 Ordinary detectors such as HaarCascades, are trained to detect people within a certain pose,
 as this is a factor which cannot be kept consistent for the application the choice of applying this detector seemed reasonable. \\
 
-Applying these types of filter on a image can be time comsuming, esspeacialy if the camera has a wide angled lens.
+Applying these types of filter on a image can be time consuming, esspeacialy if the camera has a wide angled lens.
 This issue becomes redundant wihtin this program, as the preproccesing part creates ROI at which the filter can be applied on.
 This way is computational time needed shrinken very much,  and make decision of angle of view redundant. \\
 
 
 \subsection{Preprocessing}
 The pixel-wise searching method is a very accurate but heavy process that entails a high time consumption.
-In order to speed the overall performance up, some regions of interest in the image with higher possibilities
+In order to speed up the overall performance, some regions of interest in the image with higher possibilities
 of containing people must be found as a previous step. 
 To do so, an analysis and comparison of example images of the ocean, with and without people and under
 different illumination conditions was carried out to determine a procedure to find these regions.
@@ -184,12 +184,12 @@ Thus, the solution adopted was to set up a dynamic threshold applying Otsu's met
 Proceeding this way, a few small regions containing all the candidates could be input to the skin scan process,
 getting rid of the majority of the image with no relevant information. 
 This part of the process contains the strongest assumption made for the algorithm. 
-For the binarization of the image an uniform background is assumed, meaning that this step will tend to fail for
+For the binarization of the image a uniform background is assumed, meaning that this step will tend to fail for
 images with strongly non-homogeneous surroundings. 
-It can handle ocean and sky or distant coast lines tough. 
+It can handle ocean and sky or distant coast lines though. 
 
 Furthermore, an estimation was made here concerning the size of the input ROIs. 
-According to the hight of the drone on the flight and the focal length of the camera, an approximate calculation
+According to flight altitude and the focal length of the camera, an approximate calculation
 of the size of the pixel are of people in the image can be made. 
 With it all the objects out of this boundaries can be filtered out, easing the posterior process.
 
@@ -285,7 +285,7 @@ together with the initial image and the final result.
                 \includegraphics[width=\textwidth]{Images/ROI}
                 \caption{Image 1: one of the ROIs amplified after filtering}
         \end{subfigure}
-        \caption{Example of region of interest extracted}
+        \caption{Example of region of interest extracted.}
          \label{fig:ROIs}
 \end{figure}
 
@@ -301,7 +301,7 @@ However, there are still some particular and very seldom cases in which the visi
 These mistakes are not critical though since the process includes, as said in the statement of the project,
 a human in the control loop, who will be, in the last case, the one in charge of filtering out false detections before activating rescue procedures.
 
-\section{Conclusion}
+\section{Summary}
 
 An algorithm capable of detection human far away in the ocean has been developed. 
 The algorithm uses a skin color model to detect humans,
@@ -309,9 +309,9 @@ making it robust and able to distinguish between a human other items.
 The skin color model, from the report \cite{Ref:SkinDetection} is based from different form of illuminations, 
 making it somewhat invariant to illumination differences. 
 The algorithm has been tested with different images found on the internet,
-at which it perform well. It is capable distinct between Human and animals as seen \ref{fig:humanAndDolphin}.
-The hardware which has been chosen as works well on a moving background,
-and thereby capable of retrieving footage which can be analyzed. 
+at which it perform well. It is capable of distinguishing between humans and animals as seen in figure \ref{fig:humanAndDolphin}.
+The chosen hardware works well on a moving background,
+and is thereby capable of retrieving useful footage for analysis. 
 
 \subsection{Further work} 
 In order to constrain the scope of the project, it was assumed from the beginning that a successful offline
@@ -319,8 +319,8 @@ performance of the application in a laptop processing a video could be extrapola
 According to this, the tests have been carried out making use of acquired or downloaded videos.
 As future work, it is left the implementation of the necessary hardware on the drone in order to stream the video
 and send it to the ground control to be treated.
-It is suggested the use of an added board as a Raspberry Pi or similar, together with a USB Wifi adapter.
-These setup would provide an easy to install and fast connection for video streaming that would solve the communication.
+It is suggested the use of an added board such as a variant of the Raspberry Pi or similar, together with a USB Wifi adapter.
+This setup would provide an easy to install and fast connection for video streaming that would solve the communication.
 Furthermore, the ultimate test for the system to be subjected to would be the treatment of a video of the defined scenario acquired by itself. 
 
 

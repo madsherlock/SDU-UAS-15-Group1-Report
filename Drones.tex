@@ -1,6 +1,12 @@
 \chapter{Autonomous flight}
-The following sections introduce the selection, setup and how autonomous flight was achieved on
-the Iris+.
+\label{chap:autonomousflight}
+This section describes the drone selection, gives an overview of the system setup
+and how autonomous flight was achieved on the Iris+.
+The means of communication between ground control station and drone are discussed in relation
+to the problem of developing an easy to use graphical user interface.
+Finally, this section describes how the autonomous flight can be applied to overseas rescue
+missions using search patterns generated from intuitive user-specifiable parameters,
+three example scripts developed in Matlab and a C++ library developed for the generation and manipulation of flight paths.
 
 \section{Drone selection}
 \label{sec:droneselection}
@@ -37,6 +43,7 @@ The main features and components of the Iris+ drone used for this project are:
 
 
 \section{Setup}
+\label{sec:setup}
 \subsection*{Radio Controller}
 The first part of the setup was to bind the radio controller to the radio receiver. The receiver
 used was the $2.4 Ghz$ FrSky D4R-II Reciever \cite{Ref:FrSky} and can be seen on figure
@@ -91,6 +98,7 @@ gimbal stabilizes the camera,
 but adds extra weight to the drone and uses extra power from the battery to power the two
 motors. Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
+
 \subsection*{APM Planner 2.0}
 The firmware for the pixhawk was a choice between the original px4 and arducopter
 \cite{Ref:Arducopter}. As 3DR recommend flashing the arducopter firmware, and as it contains several
@@ -102,7 +110,14 @@ during calibration and firmware flashing. The best solution found for this probl
 was a simple reboot. On Ubuntu 15.04, the software ran without problems.
 While running the flight data mode where it communicated with the drone by
 telemetry it was very stable and responsive.\\
-The APM planner 2.0 software was primarily used for calibration and testing of waypoint planning,
+Note that there is a small bug in APM Planner 2.0 with regards to displaying waypoints as text:
+In the waypoint editor, the latitude and longitude of the waypoints have switched places. When adding
+waypoints by clicking on the map, this is no problem, but when trying to make sense of the waypoints,
+it can be very confusing. However, the software exports the waypoints correctly, and uploads them correctly to the drone.
+This can be verified in the "Onboard waypoints" view in APM Planner 2.0, where the latitudes and longitudes of the uploaded
+waypoints are displayed correctly.
+Refer to the MAVLink protocol in \cite{Ref:MAVLink} and have your current latitude and longitude coordinates ready when in doubt.
+The APM Planner 2.0 software was primarily used for calibration and testing of waypoint planning,
 as waypoint navigation is a built-in feature of the arducopter firmware.\\
 All of the setup for the pixhawk FCU was done under the initial setup menu in APM planner 2.0.
 
@@ -316,6 +331,11 @@ The Matlab scripts work with vectors in a cartesian coordinate system, assuming 
 use the same scale. This means a UTM coordinate representation is necessary. For this, the scripts
 utilize the utm2lonlat script, Copyright (c) 2013, Erwin N.
 
+The Matlab scripts and C++ library described here are not one-click routines that make the drone fly.
+Instead, the process is split into smaller parts, separating the path planning somewhat from the vision of an easy to use GUI.
+However, the process outlined here can be integrated into a GUI at a later point.
+
+\subsection{Zig-Zag}
 The Matlab script named zigzag generates a "Zig Zag" flight pattern.
 This simple pattern is a simple example of an overseas search pattern, as it widens as it progresses forwards.
 This could be applicable to rescue missions where the location where the person went missing is known.
@@ -380,6 +400,7 @@ using the zigzag script.}
 \label{fig:apmpath}
 \end{figure}
 
+\subsection{Spiral}
 Another search pattern generation Matlab script, named spiral, takes two input coordinates and a
 density parameter like the zigzag script, and generates an Archimedian spiral of waypoints from the
 starting point, extending outwards, with the input spacing, until the radius is equal to the
@@ -399,6 +420,7 @@ Figure \ref{fig:spiral50m} shows an example of a spiral generated from the examp
 	\label{fig:spiral50m}
 \end{figure}
 
+\subsection{Sector}
 The final search pattern generation script developed in Matlab is named sector.
 It is an implementation of the Sector Search Pattern, see \cite{Ref:sarfundamentals}.
 The script takes two points as input. The first point is the starting point (the center of the search).
@@ -415,5 +437,13 @@ two points of figure \ref{fig:googlepath}.
 		\ref{fig:googlepath}. Waypoints 0, 3, 6, 9, 12, 15 and 18 are the center (starting) coordinate.}
 	\label{fig:sector}
 \end{figure}
+
+\section{Summary}
+It has been shown that it is possible to achieve satisfactory, stable, autonomous flight
+using paths based on overseas search patterns generated in an automizable process which
+can be integrated into a GUI. Two-sided communication between ground control station and drone
+has been achieved through a GUI in APM Planner 2.0 and through a command line interface using
+the Mavros ROS package.
+This facilitates the future development of the desired easy to use patrolling system.
 
 \newpage
