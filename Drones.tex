@@ -320,9 +320,9 @@ Both C++ applications and the library were written using Qt Creator and are cros
 Google Earth's .kml file format is simple to read if the file contains only one path or polygon.
 It follows XML layout and under the <coordinates> header, all the coordinates are listed.
 The coordinates are listed in the following format: longitude latitude altitude.
-This makes the coordinate extraction process simple: Navigate the .kml file to the <coordinates>
+This makes the coordinate extraction process simple: Navigate the .kml file to the \textless{}coordinates\textgreater{}
 header and tokenize the coordinate string until reaching the end of the section (indicated by
-</coordinates>).
+\textless{}/coordinates\textgreater{}).
 
 \section{Generating search patterns}
 \label{sec:searchpatterns}
