@@ -25,7 +25,7 @@ Therefore, the selection of the hardware and vision algorithm has to be taken co
 According to the ideas above and the available resources,
 a logically consistent choice seems to go through the image processing options. 
 This is due to the fact that any other kind of visual system
-(thermal camera, structured light, time of flight measurements, etc) do not fulfill the requirements or turns out to be too expensive.
+(thermal camera, structured light, time of flight measurements, etc) does not fulfill the requirements or turns out to be too expensive.
 Hence, a GoPro HERO 3 camera has been chosen as a robust, light and powerful enough solution \cite{ref:GoPro}.
 In order to deal with the instability and disruptions caused by the platform,
 the camera has been mounted on a Tarot T-2D Brushless Gimbal Kit, whose technical details
@@ -66,12 +66,11 @@ detection based on color under the assumption that at least a part of the target
 
 \subsection{Human skin identification}
 In order to guarantee a robust detection, the RGB-H-CbCr human skin color model presented
-in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm
-and applied for image thresholding as introduced in \cite{Ref:SkinDetection}. 
+in \cite{Ref:SkinColorModel} and \cite{Ref:SkinDetection} has been implemented in the algorithm and applied for image thresholding. 
 
-This color model is based on a set of 140 training patches of skin images used to analyze the properties and
-distribution of this color in RGB, HSV and YCbCr spaces.  These training pathches has been exposed
-to either normal uniform illumination, daylight illumination (outdoors) or flashlight illumination (under dark conditions). 
+As a result of the training presented in the paper, specific constraints in the subspaces have been determined, so that a general skin color model invariant to illumination and ethnicity was yielded. 
+The model is given by the set of bounding rules in the three subspaces in equations \ref{eq:rule1}, \ref{eq:rule2}, \ref{eq:rule3} and \ref{eq:rule4}, explained below.
+
 As a result of the training, specific constraints in the subspaces have been determined,
 so that a general skin color model invariant to illumination and ethnicity was yielded. 
 The model is given by the set of bounding rules in the three subspaces in 
@@ -80,6 +79,7 @@ equations \ref{eq:rule1}, \ref{eq:rule2}, \ref{eq:rule3} and \ref{eq:rule4}, exp
 The RGB space constraints are obtained from \cite{Ref:SkinColorModel} and represent the skin
 color at uniform daylight illumination \ref{eq:rule1}, and under flashlight or daylight lateral
 illumination \ref{eq:rule2}. These two excluding conditions are merged into rule A by means of an OR logical condition.
+
 \begin{equation}
 		\begin{cases}
 		    (R > 95) AND (G > 40) AND (B > 20),& \text{AND}\\
@@ -224,7 +224,7 @@ The following example of successful test for an image in the PC deploys in Figur
 \ref{fig:HSV}, \ref{fig:threshold} and \ref{fig:ROIs} the main outputs of the intermediate processes explained above,
 together with the initial image and the final result. 
 
-\begin{figure}[h]
+\begin{figure}[H]
         \centering
         \begin{subfigure}[h]{0.3\textwidth}
                 \includegraphics[width=\textwidth]{Images/ocean7}
@@ -239,7 +239,7 @@ together with the initial image and the final result.
         \label{fig:original_final}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
         \centering
         \begin{subfigure}[h]{0.3\textwidth}
                 \includegraphics[width=\textwidth]{Images/hue}
@@ -259,7 +259,7 @@ together with the initial image and the final result.
         \label{fig:HSV}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
         \centering
         \begin{subfigure}[h]{0.3\textwidth}
                 \includegraphics[width=\textwidth]{Images/hueHist}
@@ -274,7 +274,7 @@ together with the initial image and the final result.
          \label{fig:threshold}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
         \centering
         \begin{subfigure}[h]{0.3\textwidth}
                 \includegraphics[width=\textwidth]{Images/proc}
@@ -299,17 +299,17 @@ rocks and boats and detect humans off shore under the stated assumptions.
 In addition it can deal automatically with illumination variations, disruption on the platform and glare effects.
 However, there are still some particular and very seldom cases in which the vision process fails. 
 These mistakes are not critical though since the process includes, as said in the statement of the project,
-a human in the control loop, who will be, in the last case, the one in charge of filtering out false detections before activating rescue procedures. 
+a human in the control loop, who will be, in the last case, the one in charge of filtering out false detections before activating rescue procedures.
 
 \section{Summary}
 
 An algorithm capable of detection human far away in the ocean has been developed. 
 The algorithm uses a skin color model to detect humans,
 making it robust and able to distinguish between a human other items.
-The skin color model, from the report \cite{Ref:SkinDetection} is based from different form of illuminations, 
-making it somewhat invariant to illumination differences. 
+The skin color model, from the report \cite{Ref:SkinDetection} is based on different form of illuminations, 
+making it invariant to illumination differences. 
 The algorithm has been tested with different images found on the internet,
-at which it perform well. It is capable of distinguishing between humans and animals as seen in figure \ref{fig:humanAndDolphin}.
+at which it performs well. It is capable of distinguishing between humans and animals as seen in figure \ref{fig:humanAndDolphin}.
 The chosen hardware works well on a moving background,
 and is thereby capable of retrieving useful footage for analysis. 
 
