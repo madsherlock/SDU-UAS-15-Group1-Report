@@ -345,16 +345,19 @@ The procedure to generate a zigzag search path starting with Google Earth is as 
 \item Generate a two-point path in Google Earth (or anywhere else) and export it as a .kml file.
 \item Convert the .kml file to MAVLink waypoint text format using the waypointgen1 application.
 \item Run the zigzag Matlab script, giving the name of the newly generated text file as input,
-alongwith the search angle, density parameter and the output .csv filename.
-\item Convert the generated .csv file to mavlink waypoint text format using the csv2wp application.
+along with the search angle, density parameter and the output .csv filename.
+\item Convert the generated .csv file to MAVLink waypoint text format using the csv2wp application.
 \end{itemize}
-After the UTM conversion, two bounding vectors are created at \(\pm\) half the input angle.
-The zig-zag pattern is then created within the bounding vectors, from the starting coordinate to theending coordinate. It was chosen to end the zig-zag pattern before getting further away than the
-ending coordinate.
+After the UTM conversion, two bounding vectors are created at \(\pm\) half the input angle
+with respect to the vector from starting coordinate to ending coordinate.
+The zig-zag pattern is then created within the bounding vectors, from the starting coordinate to the
+ending coordinate. It was chosen to end the zig-zag pattern before getting further away than the
+ending coordinate, so that the ending coordinate defines the maximum distance.
 
 Examples of outputs of the zigzag script are shown in figure \ref{fig:apmpath}. The input path is
 the one shown in figure \ref{fig:googlepath}.
-The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 10 degree angle and a10 m spacing betweem back-and-forth flights, while the parameters for figure \ref{fig:apmpath2} are
+The parameters for the zigzag script output of figure \ref{fig:apmpath1} are a 10 degree angle and a
+10 m spacing betweem back-and-forth flights, while the parameters for figure \ref{fig:apmpath2} are
 a 30 degree angle and a 20 m density.
 \begin{figure}[ht]
 \centering
@@ -377,7 +380,12 @@ using the zigzag script.}
 Another search pattern generation Matlab script, named spiral, takes two input coordinates and a
 density parameter like the zigzag script, and generates an Archimedian spiral of waypoints from the
 starting point, extending outwards, with the input spacing, until the radius is equal to the
-distance to the ending point.
+distance to the ending point. The user also has the option to reverse the order of generated waypoints,
+so that the flight path is towards the center of the spiral.
+This search pattern, or more advanced versions of it, could be applied to searches where the last known
+location of the missing subject is known, but the current location is not restricted to any pattern
+(except, perhaps, a circle).
+
 Figure \ref{fig:spiral50m} shows an example of a spiral generated from the example path of figure
 \ref{fig:googlepath}. The spacing between turns is 50 m.
 \begin{figure}[ht]
