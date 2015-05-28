@@ -232,7 +232,11 @@ The preflight checks at the airport consisted of:
 \subsection{Autonomous flight}
 To test out the autonomous flight feature on the Arducopter frimware, APM planner 2.0 was used to
 plot a simple route at the airport. A route in APM Planner 2.0 was generated using waypoints.
+<<<<<<< HEAD
 These way points were placed at a relative altitude to the drones home position which is the arming
+=======
+These waypoints were placed at a relative altitude to the drones home position which is the arming
+>>>>>>> origin/master
 position, also known as "launch".
 The drone would fly a straight path to the waypoints and wait there for a designated
 time before continuing.
@@ -246,11 +250,12 @@ Instead, generation of waypoint list files was investigated, as described in sec
 The path shown on figure \ref{fig:HCAPath} was the one flown to test the autonomous flight.
 All of the waypoints were 8 meters above ground. The accepted distance to the waypoint was set to a 2 meter
 radius and the orientation of the drone was always in the direction of flight.
+The ground footage recorded during the flight can be viewed at \url{http://youtu.be/qYRAMeGNFuA}.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.95\textwidth]{./Images/HCAPath}
-  \caption{Test path at HCA Airport.}
+  \caption{Test path at HCA Airport. See \url{http://youtu.be/qYRAMeGNFuA} for ground footage.}
   \label{fig:HCAPath}
 \end{figure}
 

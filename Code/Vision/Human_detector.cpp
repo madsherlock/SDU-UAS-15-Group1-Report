@@ -84,7 +84,7 @@ bool GetSkin(Mat const &src) {
     }
     
     double image_size = dst.cols*dst.rows;
-    if((double) WhiteCount/image_size*100 < 15) // if White pixel is less than 15 % if the image then its not a human (value determined from test)
+    if((double) WhiteCount/image_size*100 < 1) // if any White pixel on the image human skin will be detected. 
     {
         cout << "rejected because: " << endl;
         cout <<(double) WhiteCount/image_size*100 << " " <<(double)blackCount/image_size*100<< " " << image_size << endl;
@@ -168,12 +168,15 @@ int main(int argc, const char * argv[]) {
     int i;
     //Load image
     src = imread("/Users/keerthikanratnarajah/Desktop/Wave1.jpeg"); // Load image
-    VideoCapture cap("/Users/keerthikanratnarajah/new2.mp4"); // load Video
-    double fps = cap.get(CV_CAP_PROP_FPS); //get the frames per seconds of the video
-    cout << "Frame per seconds : " << fps << endl;
+    //Uncomment for
+   //------------------------------------------------------------------------------//
+    VideoCapture cap("/Users/keerthikanratnarajah/SDU-UAS-15-Group1-Report/Test_images");  // load Video
+    double fps = cap.get(CV_CAP_PROP_FPS);
+    //cout << "Frame per seconds : " << fps << endl;
     while (1)
     {
-        cap.read(src);
+        //cap.read(src);
+   //------------------------------------------------------------------------------//
         cvtColor(src, dst, CV_RGB2HSV, 0 );
         Mat channel[3];
         split(dst, channel);
