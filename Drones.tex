@@ -3,6 +3,7 @@ The following sections introduce the selection, setup and how autonomous flight 
 the Iris+.
 
 \section{Drone selection}
+\label{sec:droneselection}
 To fulfill the vision of using an easy to use and readily available drone platform,
 the drone selection was quickly narrowed down what was at hand. As the primary focus of the project was to
 explore autonomous flight, other concerns such as resistance to rough weather could be neglected.
@@ -249,6 +250,7 @@ One test with an altitude of 30 meters above ground was tested, but had to be sw
 mode and landed as there was too much wind.
  
 \section{Mavros}
+\label{sec:mavros}
 Since the aim of the project was to explore autonomous flight with an easy to use interface, a way
 to communicate directly with the drone without APM PLanner 2.0 was needed. To do this the Mavros
 \cite{Ref:Mavros} ROS package was used. By running a main Mavros node it was possible to connect to
@@ -307,6 +309,7 @@ header and tokenize the coordinate string until reaching the end of the section 
 </coordinates>).
 
 \section{Generating search patterns}
+\label{sec:searchpatterns}
 Several search pattern generation scripts were developed in Matlab for use with the C++ waypoint
 library.
 The Matlab scripts work with vectors in a cartesian coordinate system, assuming that both horizontal axes
