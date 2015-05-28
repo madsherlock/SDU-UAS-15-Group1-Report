@@ -396,4 +396,21 @@ Figure \ref{fig:spiral50m} shows an example of a spiral generated from the examp
 	\label{fig:spiral50m}
 \end{figure}
 
+The final search pattern generation script developed in Matlab is named sector.
+It is an implementation of the Sector Search Pattern, see \cite{Ref:sarfundamentals}.
+The script takes two points as input. The first point is the starting point (the center of the search).
+The second point indicates the radius of the sector search and the drift direction (if any).
+As stated in \cite{Ref:sarfundamentals}, this search pattern is applicable when the approximate location
+of the target is known.
+
+Figure \ref{fig:sector} shows an example of the sector search pattern generated from the example
+two points of figure \ref{fig:googlepath}.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{Images/sector}
+	\caption[Sector search pattern example.]{Sector search pattern example generated from the path of figure
+		\ref{fig:googlepath}. Waypoints 0, 3, 6, 9, 12, 15 and 18 are the center (starting) coordinate.}
+	\label{fig:sector}
+\end{figure}
+
 \newpage
