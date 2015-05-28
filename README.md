@@ -8,4 +8,4 @@ The Data/Code directory contains the freely available source code used in this p
 
 The Data/Test_images directory contains images processed by the computer vision algorithms.
 
-The group contract is in Group contract.pdf.
+The group contract is in Group Contract.pdf.
