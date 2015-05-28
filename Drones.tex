@@ -4,18 +4,18 @@ This section describes the drone selection, gives an overview of the system setu
 and how autonomous flight was achieved on the Iris+.
 The means of communication between ground control station and drone are discussed in relation
 to the problem of developing an easy to use graphical user interface.
-Finally, this section describes how the autonomous flight can be applied to overseas rescue
-missions using search patterns generated from intuitive user-specifiable parameters,
+Finally, this section describes how the autonomous flight can be applied to rescue
+missions at sea using search patterns generated from intuitive user-specifiable parameters,
 three example scripts developed in Matlab and a C++ library developed for the generation and manipulation of flight paths.
 
 \section{Drone selection}
 \label{sec:droneselection}
 To fulfill the vision of using an easy to use and readily available drone platform,
-the drone selection was quickly narrowed down what was at hand. As the primary focus of the project was to
+the drone selection was quickly narrowed down to what was at hand. As the primary focus of the project was to
 explore autonomous flight, other concerns such as resistance to rough weather could be neglected.
 \\During the course, two drones matching the giving requirements were introduced: The DJI Phantom 2
 \cite{Ref:dji} and the 3DR Iris+ \cite{Ref:3dr}.\\
-The obvious choice between the 2 drones was the Iris+, as it used the open source pixhawk FCU
+The obvious choice between the 2 drones was the Iris+, as it used the open source Pixhawk FCU
 \cite{Ref:px4}. Having an open source FCU allowed for easy interfacing and more flexibility with
 many tasks concerning the drone. The Iris+ drone can be seen on figure \ref{fig:iris}.
 \\
@@ -49,7 +49,7 @@ The first part of the setup was to bind the radio controller to the radio receiv
 used was the $2.4 Ghz$ FrSky D4R-II Reciever \cite{Ref:FrSky} and can be seen on figure
 \ref{fig:irisInside}.
 \\
-To bind the controller, the hood of the drone has to be taken off to access the radio receiver.
+To bind the controller, the top cover of the drone has to be taken off to access the radio receiver.
 The next steps are as follows:
 \begin{enumerate}
 \item Turn on the radio transmitter while holding down the button on the back of the radio transmitter.
@@ -82,7 +82,7 @@ desired configuration. The configuration used can be seen on figure \ref{fig:tel
 significant parameters are the baud rate and the net id. When setting the configurations on the drone
 telemetry, it is important that it is not connected to the pixhawk FCU, as this would otherwise cause connection issues.\\
 When connected, the green LED should be solid and the red LED should blink whenever data is
-transferred. The drone telemetry can now safely be connected to the pixhawk FCU again.
+transferred. The drone telemetry can now safely be connected to the Pixhawk FCU again.
 
 \begin{figure}[H]
   \centering
@@ -100,10 +100,10 @@ motors. Both of these factors leads to a significant decrease in flight time.\\
 The integration and usage of the gimbal will be further explained in the vision chapter. 
 
 \subsection*{APM Planner 2.0}
-The firmware for the pixhawk was a choice between the original px4 and arducopter
-\cite{Ref:Arducopter}. As 3DR recommend flashing the arducopter firmware, and as it contains several
-features not available in the px4 firmware, arducopter was chosen.\\
-To communicate with the arducopter firmware for calibration purposes and as a general interface,
+The firmware for the Pixhawk was a choice between the original px4 and Arducopter
+\cite{Ref:Arducopter}. As 3DR recommend flashing the Arducopter firmware, and as it contains several
+features not available in the Px4 firmware, Arducopter was chosen.\\
+To communicate with the Arducopter firmware for calibration purposes and as a general interface,
 APM Planner 2.0 was used \cite{Ref:APM2}.
 When this software was used on OSX Yosemite it crashed several times
 during calibration and firmware flashing. The best solution found for this problem on this platform
@@ -119,7 +119,7 @@ waypoints are displayed correctly.
 Refer to the MAVLink protocol in \cite{Ref:MAVLink} and have your current latitude and longitude coordinates ready when in doubt.
 The APM Planner 2.0 software was primarily used for calibration and testing of waypoint planning,
 as waypoint navigation is a built-in feature of the arducopter firmware.\\
-All of the setup for the pixhawk FCU was done under the initial setup menu in APM planner 2.0.
+All of the setup for the Pixhawk FCU was done under the initial setup menu in APM planner 2.0.
 
 \subsection*{Calibration}
 After flashing the drone with new firmware, and before every flight with the drone at a new location,
@@ -139,7 +139,7 @@ To calibrate for the physical appearance of the drone the proper frame type had 
 This is done under the "initial setup" menu where "Frame type" should be selected. The proper frame
 type
 is selected and then downloaded. This sets all the parameters for the specific drone type. For this
-project the Iris+ with tarot gimbal was used.\\
+project the Iris+ with Tarot gimbal was used.\\
 
 The compass calibration involves rotating the drone around all axes to fill in the calibration
 matrix. The matrix and all the calculations are handled by APM Planner 2.0. First, the pixhawk is
@@ -147,8 +147,8 @@ selected in the menu and the live calibration is chosen. This gives the user a m
 drone around all axes. It is advised to power the drone with battery during this process,
 as any wires might get tangled
 and make the calibration more complicated.
-Sometimes several crashes were encountered during the
-calibration process on OSX Yosemite for no apparent reason.\\
+Sometimes several program crashes were encountered during the
+calibration process on OSX Yosemite.\\
 
 The calibration of the accelerometer was pretty straight forward. To calibrate the the
 accelerometer, the software asks you to put the drone in 6 distinct positions and then press enter.\\
@@ -168,7 +168,7 @@ calibration can be found at
 However, it should be noted that some elements of this guide are a bit outdated.
 
 \subsection*{Flight modes}
-As the arducopter firmware has several different flight modes and the pre set flight modes do not
+As the Arducopter firmware has several different flight modes and the preset flight modes do not
 match the desired flight modes for this project, they had to be changed.
 The desired flight modes
 are the manual modes stabilize and altitude,
@@ -184,7 +184,7 @@ landing at the current spot, disabling the throttle switch but enabling control 
 stick.
 
 \subsection*{Fail safe}
-To control the behaviour in case of a malfunction on the radio controller side or the drone running
+To control the behavior in case of a malfunction on the radio controller side or the drone running
 low on battery, the fail safe options have to be set. The software will give a warning to dismount
 the rotors during this setup. This is important as the motors are controllable in this mode.\\
 To do this, the the throttle fail safe value is set approximately 30 units below the lowest value of the
@@ -197,13 +197,13 @@ and the motor output. This feature was used to check if the flight modes gave th
 to the motors.
 
 \section{Flight}
-To do a proper flight with the drone all of the pre arm actions have to be done. This involves
+To do a proper flight with the drone all of the prearm actions have to be done. This involves
 keeping the drone in a steady position and having a GPS fix. The drone is armed by first
 holding down the front red button on the drone. It is now ready to be armed, but not yet armed.
 The arming procedure varies with the controller, but the arming sequence on the used controller
 was to keep the throttle in the bottom right corner. To disarm it, the throttle had to be in the
 bottom
-left corner. The pre arm error messages can be looked up on the following page:
+left corner. The prearm error messages can be looked up on the following page:
 \url{http://copter.ardupilot.com/wiki/flying-arducopter/prearm_safety_check/}. It should be noted
 that arming the drone indoors can be a tedious task due to the need of a GPS fix.\\
 
@@ -230,9 +230,9 @@ The preflight checks at the airport consisted of:
 \end{enumerate}
 
 \subsection{Autonomous flight}
-To test out the autonomous flight feature on the arducopter frimware, APM planner 2.0 was used to
+To test out the autonomous flight feature on the Arducopter frimware, APM planner 2.0 was used to
 plot a simple route at the airport. A route in APM Planner 2.0 was generated using waypoints.
-Theseway points were placed at a relative altitude to the drones home position which is the arming
+These way points were placed at a relative altitude to the drones home position which is the arming
 position, also known as "launch".
 The drone would fly a straight path to the waypoints and wait there for a designated
 time before continuing.
@@ -267,13 +267,13 @@ mode and landed as there was too much wind.
 \section{Mavros}
 \label{sec:mavros}
 Since the aim of the project was to explore autonomous flight with an easy to use interface, a way
-to communicate directly with the drone without APM PLanner 2.0 was needed. To do this the Mavros
+to communicate directly with the drone without APM Planner 2.0 was needed. To do this the Mavros
 \cite{Ref:Mavros} ROS package was used. By running a main Mavros node it was possible to connect to
 the drone's telemetry and control it.
 
 As this node was in a beta state when used, there was not a lot of documentation, but by some trial
 and error it was possible to connect to the drone, arm it and upload a waypoint list to the
-pixhawk FCU. Data from the drone was also published on several topics which could be used for further
+Pixhawk FCU. Data from the drone was also published on several topics which could be used for further
 control. ROS was used on ubuntu 14.04.\\
 The approach was as follows:
 \begin{enumerate}
