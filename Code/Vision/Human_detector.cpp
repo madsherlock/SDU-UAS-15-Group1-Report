@@ -3,13 +3,22 @@
 
 using namespace std;
 using namespace cv;
-
+//--------------------------------------------------------------------------------------------------------------------------//
+//Name: R1
+//Input: R,G,B values of Mat Image
+//Output: (true/false) whether the R,G,B values lies within the threshold.
+//--------------------------------------------------------------------------------------------------------------------------//
 bool R1(int R, int G, int B) {
     bool e1 = (R>95) && (G>40) && (B>20) && ((max(R,max(G,B)) - min(R, min(G,B)))>15) && (abs(R-G)>15) && (R>G) && (R>B);
     bool e2 = (R>220) && (G>210) && (B>170) && (abs(R-G)<=15) && (R>B) && (G>B);
     return (e1||e2);
 }
 
+//--------------------------------------------------------------------------------------------------------------------------//
+//Name: R2
+//Input: Y,Cr,Cb values of Mat Image
+//Output: (true/false) whether the Y,Cr,Cb values lies within the threshold.
+//--------------------------------------------------------------------------------------------------------------------------//
 bool R2(float Y, float Cr, float Cb) {
     bool e3 = Cr <= 1.5862*Cb+20;
     bool e4 = Cr >= 0.3448*Cb+76.2069;
@@ -19,10 +28,21 @@ bool R2(float Y, float Cr, float Cb) {
     return e3 && e4 && e5 && e6 && e7;
 }
 
+//--------------------------------------------------------------------------------------------------------------------------//
+//Name: R3
+//Input: H,S,V values of Mat Image
+//Output: (true/false) whether the H,S,V values lies within the threshold.
+//--------------------------------------------------------------------------------------------------------------------------//
 bool R3(float H, float S, float V) {
     return (H<25) || (H > 230);
 }
 
+
+//------------------------------------------------------------------------------------------------------------------------//
+//Name: GetSkin()
+//Input: ROIS at which blobs detected
+//Output: (true/false) whether a human is in the ROI.
+//------------------------------------------------------------------------------------------------------------------------//
 bool GetSkin(Mat const &src) {
     // allocate the result matrix
     Mat dst = src.clone();
@@ -84,7 +104,7 @@ bool GetSkin(Mat const &src) {
     }
     
     double image_size = dst.cols*dst.rows;
-    if((double) WhiteCount/image_size*100 < 1) // if any White pixel on the image human skin will be detected. 
+    if((double) WhiteCount/image_size*100 < 1) // if White pixel is less than 15 % if the image then its not a human (value determined from test)
     {
         cout << "rejected because: " << endl;
         cout <<(double) WhiteCount/image_size*100 << " " <<(double)blackCount/image_size*100<< " " << image_size << endl;
@@ -101,8 +121,11 @@ bool GetSkin(Mat const &src) {
         return true;
     }
 }
-
-
+//--------------------------------------------------------------------------------------------------------------------------//
+//Name: ROI
+//Input: BinaryImage and Original image.
+//Output: A Mat at which the BinaryImage is used as mask on the Original Image.
+//--------------------------------------------------------------------------------------------------------------------------//
 Mat ROI(Mat binaryImg, Mat originalImg){
     
     Mat channel[3];
@@ -125,6 +148,11 @@ Mat ROI(Mat binaryImg, Mat originalImg){
     return originalImg2;
 }
 
+//--------------------------------------------------------------------------------------------------------------------------//
+//Name: MarkCountours
+//Input: BinaryImage
+//Output: ROIS with human detection
+//--------------------------------------------------------------------------------------------------------------------------//
 vector<Mat>  MarkCountours(Mat binaryImg, Mat originalImg) //Input binary image
 {
     vector<vector<Point> > contours;
@@ -163,20 +191,16 @@ vector<Mat>  MarkCountours(Mat binaryImg, Mat originalImg) //Input binary image
 
 
 
+
 int main(int argc, const char * argv[]) {
     Mat src, dst;
-    int i;
     //Load image
-    src = imread("/Users/keerthikanratnarajah/Desktop/Wave1.jpeg"); // Load image
-    //Uncomment for
-   //------------------------------------------------------------------------------//
-    VideoCapture cap("/Users/keerthikanratnarajah/SDU-UAS-15-Group1-Report/Test_images");  // load Video
-    double fps = cap.get(CV_CAP_PROP_FPS);
-    //cout << "Frame per seconds : " << fps << endl;
+    //src = imread("/Users/keerthikanratnarajah/Desktop/Wave1.jpeg"); // Load image
+    //Load Video
+    VideoCapture cap("/Users/keerthikanratnarajah/SDU-UAS-15-Group1-Report/Test_images/Oceanvideo_whalerescue.mp4"); // load Video
     while (1)
     {
-        //cap.read(src);
-   //------------------------------------------------------------------------------//
+        cap.read(src);
         cvtColor(src, dst, CV_RGB2HSV, 0 );
         Mat channel[3];
         split(dst, channel);
